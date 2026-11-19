@@ -38,15 +38,19 @@ the first successful load.
 
 **Goal:** Allow each installed Home Screen app to register for push notifications.
 
-- [ ] Add a push subscription module with explicit browser capability checks.
-- [ ] Request permission only from the existing reminder-settings button.
-- [ ] Register the production service worker and call `pushManager.subscribe()`
+- [x] Add a push subscription module with explicit browser capability checks.
+- [x] Request permission only from the existing reminder-settings button.
+- [x] Register the production service worker and call `pushManager.subscribe()`
   with the backend's public VAPID key.
 - [ ] Send the subscription to the private backend.
-- [ ] Add a service-worker `push` event handler that immediately calls
+- [x] Add a service-worker `push` event handler that immediately calls
   `showNotification()`.
-- [ ] Add a `notificationclick` handler that opens or focuses the app.
-- [ ] Keep the existing foreground reminder as a fallback.
+- [x] Add a `notificationclick` handler that opens or focuses the app.
+- [x] Keep the existing foreground reminder as a fallback.
+
+**Current status:** The client-side registration flow is implemented, but it
+will remain unconfigured until `VITE_VAPID_PUBLIC_KEY` is supplied by the future
+push backend. Subscriptions are not uploaded anywhere yet.
 
 **Verification:** A test push sent to one registered phone displays a
 notification while the app is closed.

@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'move-well-'
-const CACHE_VERSION = 'v4'
+const CACHE_VERSION = 'v5'
 const PRECACHE_CACHE_NAME = `${CACHE_PREFIX}precache-${CACHE_VERSION}`
 const RUNTIME_CACHE_NAME = `${CACHE_PREFIX}runtime-${CACHE_VERSION}`
 const CURRENT_CACHE_NAMES = [PRECACHE_CACHE_NAME, RUNTIME_CACHE_NAME]
@@ -185,5 +185,75 @@ self.addEventListener('fetch', (event) => {
     getCachedResponse(event.request).then(
       (cachedResponse) => cachedResponse ?? fetchAndCacheStaticResource(event.request),
     ),
+  )
+})
+
+const DEFAULT_NOTIFICATION_TITLE = 'Workout reminder'
+const DEFAULT_NOTIFICATION_BODY = 'Your scheduled routine is ready.'
+
+const getPushPayload = (event) => {
+  if (!event.data) return {}
+
+  try {
+    const payload = event.data.json()
+    return payload && typeof payload === 'object' ? payload : { body: String(payload) }
+  } catch {
+    try {
+      return { body: event.data.text() }
+    } catch {
+      return {}
+    }
+  }
+}
+
+const getNotificationUrl = (payload) => {
+  const requestedUrl = typeof payload.url === 'string'
+    ? payload.url
+    : payload.data && typeof payload.data.url === 'string'
+      ? payload.data.url
+      : './'
+
+  try {
+    const url = new URL(requestedUrl, self.registration.scope)
+    return url.origin === self.location.origin && url.pathname.startsWith(new URL(self.registration.scope).pathname)
+      ? url.toString()
+      : self.registration.scope
+  } catch {
+    return self.registration.scope
+  }
+}
+
+self.addEventListener('push', (event) => {
+  const payload = getPushPayload(event)
+  const title = typeof payload.title === 'string' && payload.title.trim()
+    ? payload.title
+    : DEFAULT_NOTIFICATION_TITLE
+  const body = typeof payload.body === 'string' && payload.body.trim()
+    ? payload.body
+    : DEFAULT_NOTIFICATION_BODY
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      icon: getScopedUrl('./icon-192.png'),
+      badge: getScopedUrl('./icon-192.png'),
+      tag: typeof payload.tag === 'string' && payload.tag.trim() ? payload.tag : 'move-well-workout',
+      data: { url: getNotificationUrl(payload) },
+    }),
+  )
+})
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+  const targetUrl = event.notification.data?.url ?? self.registration.scope
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((clientList) => {
+        const appClient = clientList.find((client) => client.url.startsWith(self.registration.scope))
+        if (appClient) return appClient.focus()
+        return self.clients.openWindow(targetUrl)
+      })
+      .catch(() => undefined),
   )
 })

@@ -60,6 +60,15 @@ start implementing step one.
 ## Exit Criteria
 
 - [ ] `step-by-step.md` documents the complete phased implementation.
-- [ ] Step 1 makes the PWA install metadata and icon assets iPhone-ready.
+- [x] Step 1 makes the PWA install metadata and icon assets iPhone-ready.
 - [x] Step 1 build, lint, and tests pass.
 - [ ] Later push/backend phases remain documented but unimplemented until Step 1 is verified.
+
+## Progress
+
+- Step 1 is complete and deployed manually through Cloudflare Pages.
+- Step 2 client foundation is implemented: VAPID-configured subscription
+  registration, service-worker `push`, and `notificationclick` handling.
+- The push subscription is intentionally not uploaded until Step 3 defines the
+  private backend contract.
+- Full validation currently passes: 176 tests, lint, and production build.

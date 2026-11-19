@@ -7,6 +7,12 @@ import {
   type NotificationApi,
 } from '../notifications'
 import {
+  getPushRegistrationMessage,
+  subscribeForPush,
+  type PushRegistrationDependencies,
+  type PushRegistrationStatus,
+} from '../push'
+import {
   createStorageAdapter,
   type StorageAdapter,
 } from '../storage'
@@ -18,6 +24,7 @@ export type ReminderSettingsProps = {
   /** Backward-compatible alias for consumers that name the dependency `storage`. */
   storage?: StorageAdapter
   notificationApi?: NotificationApi | null
+  pushDependencies?: PushRegistrationDependencies
   foregroundError?: string
 }
 
@@ -29,7 +36,11 @@ const getPermissionActionLabel = (capability: ReminderSettingsData['notification
   return 'Enable browser notifications'
 }
 
-function ReminderSettings({ storage, storageAdapter, notificationApi, foregroundError = '' }: ReminderSettingsProps) {
+const getPushActionLabel = (status: PushRegistrationStatus | 'idle'): string => (
+  status === 'error' ? 'Try push registration again' : 'Register this device for push'
+)
+
+function ReminderSettings({ storage, storageAdapter, notificationApi, pushDependencies, foregroundError = '' }: ReminderSettingsProps) {
   const adapter = useMemo(
     () => storageAdapter ?? storage ?? createStorageAdapter(),
     [storage, storageAdapter],
@@ -47,6 +58,7 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, foreground
     notificationCapability: detectedCapability,
   }))
   const [isRequesting, setIsRequesting] = useState(false)
+  const [pushStatus, setPushStatus] = useState<PushRegistrationStatus | 'idle'>('idle')
   const [persistenceError, setPersistenceError] = useState(false)
   const [timeError, setTimeError] = useState('')
 
@@ -66,12 +78,21 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, foreground
     persistSettings(nextSettings)
   }
 
+  const registerPush = async (notificationPermission: NotificationPermission) => {
+    const result = await subscribeForPush({
+      ...pushDependencies,
+      notificationPermission,
+    })
+    setPushStatus(result.status)
+  }
+
   const handlePermissionRequest = async () => {
     setIsRequesting(true)
     const capability = await requestNotificationPermission(resolvedNotificationApi)
     const nextSettings = { ...settings, notificationCapability: capability }
     setSettings(nextSettings)
     persistSettings(nextSettings)
+    if (capability === 'granted') await registerPush(capability)
     setIsRequesting(false)
   }
 
@@ -87,6 +108,9 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, foreground
 
   const capability = settings.notificationCapability
   const canRequestPermission = capability !== 'unsupported' && capability !== 'granted'
+  const canRegisterPush = capability === 'granted'
+    && pushStatus !== 'subscribed'
+    && pushStatus !== 'unsupported'
 
   return (
     <section aria-labelledby="reminder-settings-title" className="reminder-settings">
@@ -146,6 +170,20 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, foreground
             {isRequesting ? 'Checking permission…' : getPermissionActionLabel(capability)}
           </button>
         )}
+        {canRegisterPush && (
+          <button
+            className="reminder-settings__permission-button"
+            disabled={isRequesting}
+            onClick={() => {
+              setIsRequesting(true)
+              void registerPush('granted').finally(() => setIsRequesting(false))
+            }}
+            type="button"
+          >
+            {isRequesting ? 'Registering device…' : getPushActionLabel(pushStatus)}
+          </button>
+        )}
+        {pushStatus !== 'idle' && <p>{getPushRegistrationMessage(pushStatus)}</p>}
       </div>
 
       {persistenceError && (

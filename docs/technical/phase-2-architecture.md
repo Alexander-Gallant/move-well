@@ -1,7 +1,8 @@
 # Phase 2 architecture
 
-Phase 2 is a React and TypeScript browser application with four local capabilities: validated storage,
-deterministic weekly scheduling, foreground reminder checks, and a production-only service worker.
+Phase 2 is a React and TypeScript browser application with validated storage,
+deterministic weekly scheduling, foreground reminder checks, a production-only
+service worker, and the first client-side Web Push boundary.
 
 ## Runtime shape
 
@@ -10,7 +11,7 @@ React UI
   ├─ storage adapter → localStorage (`move-well-storage`, envelope v1)
   ├─ schedule logic → validated weekly routine assignments
   ├─ foreground reminder loop → due-assignment check while the page is open
-  └─ production service worker → shell/static asset Cache Storage
+  └─ production service worker → shell/static asset Cache Storage + Web Push display handlers
 ```
 
 There is no API or remote data source. Cache Storage contains application resources; local storage
@@ -91,6 +92,17 @@ Unsupported, denied, default, display-failure, and error states produce non-fata
 schedule remains usable. This layer does not provide guaranteed background scheduling or reliable
 iPhone notification delivery.
 
+### Web Push client boundary
+
+The client-side push module is separate from the foreground notification
+capability. After notification permission is granted, it can use the production
+service worker and a `VITE_VAPID_PUBLIC_KEY` to create a `userVisibleOnly`
+subscription. The subscription is not persisted in application local storage or
+sent to a server yet. The service worker handles `push` payloads defensively,
+shows a visible notification immediately, and focuses or opens the app on
+notification click. A future backend must receive subscriptions over an
+authenticated endpoint and send encrypted VAPID pushes.
+
 ## PWA build and service-worker caching
 
 `vite.config.ts` sets `base: './'`, keeping generated asset references relative. Production startup
@@ -143,7 +155,7 @@ behavior should be checked with `build` followed by `preview`.
 
 ## Known boundaries
 
-- No backend, account, backup service, or cross-device synchronization exists.
+- No backend, account, backup service, push subscription API, or cross-device synchronization exists.
 - Browser local storage is the only durable copy of user-created data.
 - A recurring schedule is stored and displayed, but foreground checks do not guarantee background
   execution.

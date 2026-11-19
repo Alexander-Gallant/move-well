@@ -8,6 +8,7 @@ import ReminderSettings from './ReminderSettings'
 import { createDefaultStorageState, createStorageAdapter, type StorageLike } from '../storage'
 import type { FitnessStorageState } from '../types'
 import type { NotificationApi } from '../notifications'
+import type { ServiceWorkerContainerLike } from '../push'
 
 class MemoryStorage implements StorageLike {
   private readonly values = new Map<string, string>()
@@ -63,6 +64,38 @@ describe('ReminderSettings', () => {
     expect(requestPermission).toHaveBeenCalledOnce()
     expect(screen.getByRole('status')).toHaveTextContent('Notifications ready')
     expect(adapter.read().reminders.notificationCapability).toBe('granted')
+  })
+
+  it('registers the device for push only after notification permission is granted', async () => {
+    const user = userEvent.setup()
+    const requestPermission = vi.fn(() => Promise.resolve('granted' as const))
+    const getSubscription = vi.fn(() => Promise.resolve(null))
+    const subscribe = vi.fn(() => Promise.resolve({
+      endpoint: 'https://push.example.test/subscription',
+      toJSON: () => ({ endpoint: 'https://push.example.test/subscription' }),
+    }))
+    const pushDependencies: { serviceWorker: ServiceWorkerContainerLike; vapidPublicKey: string } = {
+      serviceWorker: { ready: Promise.resolve({ pushManager: { getSubscription, subscribe } }) },
+      vapidPublicKey: 'AQIDBA',
+    }
+
+    render(
+      <ReminderSettings
+        notificationApi={createNotification('default', requestPermission)}
+        pushDependencies={pushDependencies}
+        storageAdapter={createTestStorage()}
+      />,
+    )
+
+    expect(subscribe).not.toHaveBeenCalled()
+    await user.click(screen.getByRole('button', { name: /enable browser notifications/i }))
+
+    expect(requestPermission).toHaveBeenCalledOnce()
+    expect(subscribe).toHaveBeenCalledWith({
+      applicationServerKey: new Uint8Array([1, 2, 3, 4]).buffer,
+      userVisibleOnly: true,
+    })
+    expect(screen.getByRole('status')).toHaveTextContent('registered for future workout push reminders')
   })
 
   it('renders a clear denied message after a denied permission outcome', async () => {

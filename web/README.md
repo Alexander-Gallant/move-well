@@ -104,6 +104,17 @@ The capability is stored as `granted`, `default`, `denied`, `unsupported`, or `e
 This is **not** guaranteed background scheduling and does not promise reliable iPhone notification
 delivery. Users can open the app to see the recurring plan.
 
+The client also contains the first Web Push integration boundary:
+
+- Permission is still requested only from the explicit reminder-settings action.
+- A configured `VITE_VAPID_PUBLIC_KEY` allows the installed app to register a
+  `userVisibleOnly` push subscription through the production service worker.
+- The service worker can display a defensive push payload and focus the app when
+  its notification is clicked.
+- The current deployment does not set a VAPID key and does not upload
+  subscriptions; a private backend and scheduled sender are still required for
+  background reminders.
+
 ## Offline and PWA behavior
 
 Use a production build to test the PWA:
@@ -117,7 +128,7 @@ Vite builds with `base: './'`, and the production service worker is registered f
 URL. During installation it precaches the production `index.html`, manifest/icon shell assets, and
 the static asset graph discovered from the built app shell (for example, hashed scripts and styles).
 
-The worker uses versioned caches `move-well-precache-v3` and `move-well-runtime-v3`:
+The worker uses versioned caches `move-well-precache-v5` and `move-well-runtime-v5`:
 
 - Same-origin static `GET` requests without query strings use cache-first lookup and runtime caching.
 - API-like requests, non-`GET` requests, and application data bypass Cache Storage; user data stays in
@@ -138,3 +149,5 @@ new worker takes control. Registration and update failures are non-fatal.
 - Foreground reminder checks do not provide guaranteed background scheduling.
 - Browser reminders depend on permission, browser support, and platform behavior.
 - Reliable iPhone notifications require a future native or push-enabled implementation.
+- Web Push registration is currently client-only; there is no subscription API,
+  VAPID sender, or scheduled reminder backend yet.
