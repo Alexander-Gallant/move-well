@@ -1,0 +1,50 @@
+{
+  "id": "fitness-web-phase-2-07",
+  "seq": "07",
+  "title": "Integrate Phase 2 components, state, navigation, and persistence",
+  "status": "completed",
+  "depends_on": ["03", "04", "05", "06"],
+  "parallel": false,
+  "suggested_agent": "OpenFrontendSpecialist",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/ui-styling-standards.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/App.css",
+    "web/src/index.css",
+    "web/src/types.ts",
+    "web/src/storage.ts",
+    "web/src/components/RoutineManager.tsx",
+    "web/src/components/ScheduleEditor.tsx",
+    "web/src/components/ReminderSettings.tsx",
+    "web/src/main.tsx"
+  ],
+  "acceptance_criteria": [
+    "Follows 4-stage design workflow.",
+    "Responsive at all breakpoints.",
+    "App startup loads the migrated storage state once and all Phase 2 views share the same current routines, schedule, and reminder settings.",
+    "Navigation exposes routine management, weekly schedule editing, and reminder settings without breaking the existing exercise library or routine builder.",
+    "Saving, selecting, renaming, deleting, scheduling, and reminder changes remain visible after reload and do not overwrite unrelated local data.",
+    "All user-facing copy is English, semantic controls have labels/focus states, and unsupported notification fallback remains visible where relevant.",
+    "Existing build and lint behavior remains passing after integration."
+  ],
+  "deliverables": [
+    "web/src/App.tsx",
+    "web/src/App.css",
+    "web/src/index.css"
+  ],
+  "validation_commands": [
+    "npm --prefix web run lint",
+    "npm --prefix web run build",
+    "npm --prefix web run test -- --run"
+  ],
+  "agent_id": null,
+  "started_at": "2026-10-18T20:14:53Z",
+  "completed_at": "2026-10-18T20:14:53Z",
+  "completion_summary": "Integrated the migrated shared storage state with Dashboard, Exercise Library, Routine Builder, Saved Routines, Schedule, and Reminders views. Persistence, responsive styling, accessibility focus states, and shared routine/schedule/reminder updates are wired; lint, build, and tests pass."
+}

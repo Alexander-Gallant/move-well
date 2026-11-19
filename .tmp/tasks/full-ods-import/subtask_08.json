@@ -1,0 +1,40 @@
+{
+  "id": "full-ods-import-08",
+  "seq": "08",
+  "title": "Update catalogue and integrated UI regression tests",
+  "status": "pending",
+  "depends_on": ["02", "03", "04", "05", "07"],
+  "parallel": false,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "docs/technical/exercise-catalogue-import-standard.md",
+    "schemas/workflow.md"
+  ],
+  "reference_files": [
+    "web/src/exerciseCatalogueImport.test.ts",
+    "web/src/App.test.tsx",
+    "web/src/components/RoutineBuilder.test.tsx",
+    "web/src/exerciseCatalogueData.ts",
+    "web/src/exerciseCataloguePocData.ts",
+    "web/src/App.tsx",
+    "web/src/components/RoutineBuilder.tsx",
+    "web/src/test/fixtures/exercise-catalogue-hunched-shoulders-thoracic-kyphosis.txt"
+  ],
+  "acceptance_criteria": [
+    "Import tests assert exactly 20 unique catalogue records, complete stable IDs, preserved categories, separated type values, and no PoC records or references.",
+    "Integrated app tests assert all 20 catalogue exercises load in a fresh library and multi-valued types can be filtered, displayed, and used in a routine.",
+    "Tests assert source/evidence fields remain outside persisted and rendered user-facing Exercise objects.",
+    "The affected parser, converter, import, storage, routine, component, and App test files pass together without weakening existing regression assertions."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueImport.test.ts",
+    "web/src/App.test.tsx",
+    "web/src/components/RoutineBuilder.test.tsx"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

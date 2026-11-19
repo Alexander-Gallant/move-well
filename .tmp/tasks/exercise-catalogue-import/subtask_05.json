@@ -1,0 +1,35 @@
+{
+  "id": "exercise-catalogue-import-05",
+  "seq": "05",
+  "title": "Test conversion mapping and Exercise validity",
+  "status": "pending",
+  "depends_on": ["04"],
+  "parallel": true,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/data.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.ts"
+  ],
+  "acceptance_criteria": [
+    "Tests cover Strength and Stretch mapping and assert that source category information is retained.",
+    "Tests assert every converted list field is an array with the expected non-empty source values and every common-error pair has string error and correction values.",
+    "Tests assert converted ids are deterministic and unique and that compatibility instructions mirror structured steps.",
+    "Tests reject or fail conversion for missing required raw fields instead of creating partially valid Exercise records.",
+    "The conversion test file passes independently."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueConversion.test.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/exerciseCatalogueConversion.test.ts"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

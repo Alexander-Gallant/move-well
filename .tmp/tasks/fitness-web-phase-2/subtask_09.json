@@ -1,0 +1,47 @@
+{
+  "id": "fitness-web-phase-2-09",
+  "seq": "09",
+  "title": "Update README and Phase 2 technical decision documentation",
+  "status": "pending",
+  "depends_on": ["08"],
+  "parallel": false,
+  "suggested_agent": "DocumentationAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md"
+  ],
+  "reference_files": [
+    "web/README.md",
+    "web/package.json",
+    "web/src/storage.ts",
+    "web/src/schedule.ts",
+    "web/src/notifications.ts",
+    "web/public/sw.js",
+    "web/public/manifest.webmanifest",
+    "outline.odt"
+  ],
+  "acceptance_criteria": [
+    "README replaces the starter-template framing with project-specific setup, scripts, feature overview, local persistence behavior, and offline/PWA usage instructions.",
+    "README documents that browser reminders are best-effort, permission-gated, and have an unsupported fallback; it does not promise reliable iPhone notifications.",
+    "A technical decision document records why the PoC remains local-only, how storage versioning/migration protects existing data, and the service-worker cache/update strategy.",
+    "Documentation identifies known limitations, including no backend/account sync and no guaranteed background scheduling.",
+    "Documentation examples and commands match the final package scripts and all prose is in English."
+  ],
+  "deliverables": [
+    "web/README.md",
+    "docs/decisions/phase-2-local-first.md",
+    "docs/technical/phase-2-architecture.md"
+  ],
+  "validation_commands": [
+    "test -s web/README.md",
+    "test -s docs/decisions/phase-2-local-first.md",
+    "test -s docs/technical/phase-2-architecture.md",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

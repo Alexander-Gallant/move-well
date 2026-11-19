@@ -1,0 +1,177 @@
+.reminder-settings {
+  background: #fff;
+  border: 1px solid #e2e9df;
+  border-radius: 13px;
+  box-shadow: 0 12px 30px rgba(51, 64, 55, .06);
+  color: #334136;
+  max-width: 720px;
+  padding: 24px;
+}
+
+.reminder-settings__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.reminder-settings__eyebrow {
+  color: #82976a;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.reminder-settings h2 {
+  color: #27362f;
+  font-size: 25px;
+  letter-spacing: -1px;
+  margin: 8px 0 7px;
+}
+
+.reminder-settings__header p,
+.reminder-settings__help,
+.reminder-settings__status p {
+  color: #7b887f;
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.reminder-settings__icon {
+  align-items: center;
+  background: #e8f0d7;
+  border-radius: 50%;
+  color: #6d8454;
+  display: inline-flex;
+  flex: 0 0 42px;
+  font-size: 22px;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.reminder-settings__controls {
+  border-bottom: 1px solid #e7ece5;
+  border-top: 1px solid #e7ece5;
+  display: grid;
+  gap: 18px;
+  margin-top: 25px;
+  padding: 19px 0;
+}
+
+.reminder-settings__toggle-row {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  min-height: 44px;
+}
+
+.reminder-settings__toggle-row span,
+.reminder-settings__time-field {
+  display: grid;
+  gap: 5px;
+}
+
+.reminder-settings__toggle-row strong,
+.reminder-settings__time-field > span {
+  color: #405044;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reminder-settings__toggle-row small {
+  color: #8b958e;
+  font-size: 11px;
+}
+
+.reminder-settings__toggle-row input {
+  appearance: none;
+  background: #d3dcd0;
+  border-radius: 999px;
+  cursor: pointer;
+  flex: 0 0 46px;
+  height: 26px;
+  margin: 0;
+  position: relative;
+  transition: background-color .2s ease;
+  width: 46px;
+}
+
+.reminder-settings__toggle-row input::after {
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(32, 44, 42, .2);
+  content: '';
+  height: 20px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  transition: transform .2s ease;
+  width: 20px;
+}
+
+.reminder-settings__toggle-row input:checked { background: #8ca660; }
+.reminder-settings__toggle-row input:checked::after { transform: translateX(20px); }
+
+.reminder-settings__toggle-row input:focus-visible,
+.reminder-settings__time-field input:focus-visible,
+.reminder-settings__permission-button:focus-visible {
+  outline: 3px solid #b8cd7b;
+  outline-offset: 2px;
+}
+
+.reminder-settings__time-field input {
+  background: #fbfcfa;
+  border: 1px solid #dfe6dd;
+  border-radius: 6px;
+  color: #344138;
+  font-size: 13px;
+  max-width: 180px;
+  min-height: 44px;
+  padding: 9px 11px;
+}
+
+.reminder-settings__help { margin-top: 16px; }
+
+.reminder-settings__status {
+  border-radius: 8px;
+  margin-top: 18px;
+  padding: 14px 15px;
+}
+
+.reminder-settings__status--granted { background: #edf5e6; color: #587345; }
+.reminder-settings__status--default { background: #f5f3e8; color: #786e49; }
+.reminder-settings__status--denied,
+.reminder-settings__status--error,
+.reminder-settings__status--unsupported { background: #f5f0eb; color: #765e51; }
+.reminder-settings__status strong { font-size: 12px; }
+.reminder-settings__status p { color: inherit; margin-top: 5px; }
+
+.reminder-settings__permission-button {
+  background: #34453e;
+  border: 0;
+  border-radius: 6px;
+  color: #f5f8ed;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 13px;
+  min-height: 44px;
+  padding: 9px 13px;
+}
+
+.reminder-settings__permission-button:hover { background: #263730; }
+.reminder-settings__permission-button:disabled { cursor: wait; opacity: .65; }
+.reminder-settings__error { color: #a35344; font-size: 11px; line-height: 1.5; margin: 13px 0 0; }
+
+@media (min-width: 640px) {
+  .reminder-settings__controls { align-items: end; grid-template-columns: 1fr 190px; }
+}
+
+@media (max-width: 420px) {
+  .reminder-settings { padding: 20px 17px; }
+  .reminder-settings__header p { max-width: 235px; }
+  .reminder-settings__toggle-row { align-items: flex-start; }
+}

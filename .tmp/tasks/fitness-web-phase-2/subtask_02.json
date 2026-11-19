@@ -1,0 +1,39 @@
+{
+  "id": "fitness-web-phase-2-02",
+  "seq": "02",
+  "title": "Implement pure weekly recurrence and schedule functions with tests",
+  "status": "pending",
+  "depends_on": ["01"],
+  "parallel": false,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md"
+  ],
+  "reference_files": [
+    "web/src/types.ts",
+    "web/src/routine.ts",
+    "web/src/data.ts"
+  ],
+  "acceptance_criteria": [
+    "Pure functions normalize weekly entries and return immutable results for adding, updating, removing, and grouping assignments.",
+    "A deterministic recurrence function produces the requested week view from a supplied week anchor without relying on the current clock or browser globals.",
+    "Multiple assignments on one day, empty/rest days, invalid times, and missing routine references have explicit pass/fail behavior covered by tests.",
+    "Tests cover happy paths, boundaries, malformed input, and immutability with descriptive independent cases.",
+    "No recurrence function performs localStorage, notification, or React side effects."
+  ],
+  "deliverables": [
+    "web/src/schedule.ts",
+    "web/src/schedule.test.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/schedule.test.ts",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

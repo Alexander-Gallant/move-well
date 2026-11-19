@@ -1,0 +1,40 @@
+{
+  "id": "exercise-catalogue-import-06",
+  "seq": "06",
+  "title": "Integrate the 20 converted records into the exercise library",
+  "status": "completed",
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-15T00:00:00Z",
+  "depends_on": ["03", "05"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/essential-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/data.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.test.ts"
+  ],
+  "acceptance_criteria": [
+    "The canonical app library exposes all 20 converted source exercises exactly once and retains every existing starter exercise.",
+    "The integration uses the parser/conversion contract or a deterministic generated data artifact, with no report-level guidance imported as an Exercise.",
+    "Existing starter exercise ids and default local-storage compatibility are not overwritten or made invalid.",
+    "The integrated records remain usable by current library filters, routine generation, favorites, and exercise detail rendering.",
+    "The web project builds after the library integration."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueData.ts",
+    "web/src/data.ts",
+    "web/src/storage.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run build",
+    "npm --prefix web run test -- --run src/exerciseCatalogueParser.test.ts src/exerciseCatalogueConversion.test.ts"
+  ],
+  "completed_at": "2026-11-15T00:00:00Z",
+  "completion_summary": "Integrated 20 deterministic catalogue records, unique combined library IDs, and canonical defaults while preserving starter and stored exercise compatibility."
+}

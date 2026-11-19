@@ -1,0 +1,35 @@
+{
+  "id": "exercise-catalogue-import-04",
+  "seq": "04",
+  "title": "Implement raw-record to Exercise conversion",
+  "status": "completed",
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-15T00:00:00Z",
+  "depends_on": ["02"],
+  "parallel": true,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/essential-patterns.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/data.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/workflow.md"
+  ],
+  "acceptance_criteria": [
+    "Conversion produces valid Exercise objects without mutating parser output.",
+    "Every source type maps to Strength or Stretch, while the original source category remains available in the Exercise category field or an explicitly documented equivalent.",
+    "Stable ids are deterministic, unique for the 20 source records, and safe for existing filtering, routine, and storage code.",
+    "Purpose, description, equipment, setup, range, breathing, dose, sensation, regression, progression, evidence, and sources are preserved.",
+    "Muscles, specific muscles, steps, common errors, tags, sources, and compatibility instructions are populated as structured arrays; favorite and duration defaults are explicit."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueConversion.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run build"
+  ],
+  "completed_at": "2026-11-15T00:00:00Z",
+  "completion_summary": "Implemented pure Exercise catalogue conversion with typed validation errors, mapped categories, stable slug IDs, collision hashes, and compatibility defaults. Build/tests were blocked by shell permissions."
+}

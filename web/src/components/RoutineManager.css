@@ -1,0 +1,376 @@
+.routine-manager {
+  --routine-ink: #27352f;
+  --routine-muted: #748078;
+  --routine-border: #dfe7dc;
+  --routine-surface: #ffffff;
+  --routine-accent: #dceab8;
+  --routine-accent-strong: #63794b;
+  --routine-danger: #a24e43;
+  background: #f8faf6;
+  border: 1px solid var(--routine-border);
+  border-radius: 16px;
+  color: var(--routine-ink);
+  display: grid;
+  gap: 20px;
+  max-width: 920px;
+  padding: clamp(20px, 4vw, 34px);
+}
+
+.routine-manager__header,
+.routine-manager__item-main,
+.routine-manager__confirmation,
+.routine-manager__actions,
+.routine-manager__save-controls,
+.routine-manager__rename-controls {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.routine-manager__header {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.routine-manager__eyebrow {
+  color: #84927f;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.1px;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.routine-manager h2,
+.routine-manager h3,
+.routine-manager p {
+  margin-top: 0;
+}
+
+.routine-manager h2 {
+  font-size: clamp(24px, 4vw, 31px);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.routine-manager h3 {
+  font-size: 18px;
+  letter-spacing: -.4px;
+  margin-bottom: 6px;
+}
+
+.routine-manager__intro,
+.routine-manager__active p,
+.routine-manager__hint,
+.routine-manager__save p {
+  color: var(--routine-muted);
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+.routine-manager__count,
+.routine-manager__active-mark,
+.routine-manager__selected-label {
+  background: var(--routine-accent);
+  border-radius: 999px;
+  color: var(--routine-accent-strong);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 8px 11px;
+  white-space: nowrap;
+}
+
+.routine-manager__active {
+  align-items: center;
+  background: #edf3e2;
+  border: 1px solid #d4e2bd;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+}
+
+.routine-manager__active h3 {
+  margin-bottom: 0;
+}
+
+.routine-manager__active p:last-child {
+  font-size: 12px;
+  margin: 5px 0 0;
+}
+
+.routine-manager__save {
+  align-items: end;
+  background: var(--routine-surface);
+  border: 1px solid var(--routine-border);
+  border-radius: 12px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 1.2fr);
+  padding: 18px;
+}
+
+.routine-manager__save label,
+.routine-manager__rename label {
+  color: var(--routine-ink);
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.routine-manager input {
+  background: #fcfdfb;
+  border: 1px solid #cfdace;
+  border-radius: 7px;
+  color: var(--routine-ink);
+  font-size: 14px;
+  min-height: 46px;
+  min-width: 0;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.routine-manager input:focus-visible,
+.routine-manager button:focus-visible {
+  outline: 3px solid #9cad58;
+  outline-offset: 2px;
+}
+
+.routine-manager__save-controls {
+  align-items: stretch;
+}
+
+.routine-manager__save-controls input {
+  flex: 1;
+}
+
+.routine-manager__button {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 44px;
+  padding: 9px 13px;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+  white-space: nowrap;
+}
+
+.routine-manager__button:hover {
+  transform: translateY(-1px);
+}
+
+.routine-manager__button--primary {
+  background: #202c2a;
+  color: #f6f8ec;
+}
+
+.routine-manager__button--primary:hover {
+  background: #344440;
+}
+
+.routine-manager__button--quiet {
+  background: #f0f4eb;
+  border-color: #dce6d7;
+  color: #52614e;
+}
+
+.routine-manager__button--quiet:hover {
+  background: #e5eddc;
+}
+
+.routine-manager__button--danger,
+.routine-manager__button--danger-quiet {
+  color: var(--routine-danger);
+}
+
+.routine-manager__button--danger {
+  background: #fff0ed;
+  border-color: #efc9c1;
+}
+
+.routine-manager__button--danger-quiet {
+  background: transparent;
+  border-color: #e7cbc5;
+}
+
+.routine-manager__feedback {
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+  padding: 11px 13px;
+}
+
+.routine-manager__feedback--success {
+  background: #edf5e4;
+  color: #4d7047;
+}
+
+.routine-manager__feedback--error {
+  background: #fff0ed;
+  color: #91493e;
+}
+
+.routine-manager__list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.routine-manager__item {
+  background: var(--routine-surface);
+  border: 1px solid var(--routine-border);
+  border-radius: 11px;
+  display: grid;
+  gap: 14px;
+  padding: 10px;
+}
+
+.routine-manager__item--active {
+  border-color: #bcd08f;
+  box-shadow: 0 0 0 2px #e8f0d5;
+}
+
+.routine-manager__item-main {
+  min-width: 0;
+}
+
+.routine-manager__select {
+  background: transparent;
+  border: 0;
+  border-radius: 7px;
+  color: inherit;
+  display: grid;
+  gap: 5px;
+  min-height: 58px;
+  min-width: 0;
+  padding: 9px;
+  text-align: left;
+}
+
+.routine-manager__select:hover,
+.routine-manager__select[aria-pressed='true'] {
+  background: #f1f5e9;
+}
+
+.routine-manager__select-name {
+  font-size: 15px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.routine-manager__select-meta {
+  color: var(--routine-muted);
+  font-size: 11px;
+}
+
+.routine-manager__selected-label {
+  margin-left: auto;
+}
+
+.routine-manager__actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.routine-manager__rename,
+.routine-manager__confirmation {
+  border-top: 1px solid #edf1eb;
+  padding: 14px 9px 3px;
+}
+
+.routine-manager__rename-controls {
+  align-items: stretch;
+}
+
+.routine-manager__rename-controls input {
+  flex: 1;
+}
+
+.routine-manager__confirmation {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.routine-manager__confirmation > span {
+  color: #7e554e;
+  font-size: 12px;
+}
+
+.routine-manager__confirmation > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.routine-manager__hint {
+  font-size: 11px;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .routine-manager__save {
+    grid-template-columns: 1fr;
+  }
+
+  .routine-manager__save-controls,
+  .routine-manager__rename-controls,
+  .routine-manager__confirmation {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .routine-manager__save-controls .routine-manager__button,
+  .routine-manager__rename-controls .routine-manager__button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .routine-manager__header,
+  .routine-manager__active {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .routine-manager__count,
+  .routine-manager__active-mark {
+    align-self: flex-start;
+  }
+
+  .routine-manager__item-main {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .routine-manager__selected-label {
+    margin-left: 9px;
+  }
+
+  .routine-manager__actions {
+    justify-content: stretch;
+  }
+
+  .routine-manager__actions .routine-manager__button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routine-manager__button {
+    transition: none;
+  }
+
+  .routine-manager__button:hover {
+    transform: none;
+  }
+}

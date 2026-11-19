@@ -1,0 +1,34 @@
+{
+  "id": "full-ods-import-04",
+  "seq": "04",
+  "title": "Update storage and routine logic for multi-type exercises",
+  "status": "pending",
+  "depends_on": ["01"],
+  "parallel": true,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    "web/src/storage.ts",
+    "web/src/routine.ts",
+    "web/src/types.ts",
+    "web/src/data.ts"
+  ],
+  "acceptance_criteria": [
+    "Storage validation and normalization accept arbitrary non-empty type values and multi-valued type arrays.",
+    "Legacy persisted scalar Strength/Stretch values migrate to the canonical representation without dropping valid exercise records.",
+    "Routine selection matches an exercise when the selected group type is one of that exercise's type values.",
+    "Filtering, target-muscle/tag derivation, routine regeneration, favorites, snapshots, and storage cloning remain immutable and type-safe.",
+    "Evidence, source URLs, and other import-only fields are not persisted in the user-facing storage model."
+  ],
+  "deliverables": [
+    "web/src/storage.ts",
+    "web/src/routine.ts"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

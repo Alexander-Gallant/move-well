@@ -1,0 +1,38 @@
+{
+  "id": "full-ods-import-03",
+  "seq": "03",
+  "title": "Convert arbitrary source types without lossy mapping",
+  "status": "in_progress",
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-16T00:00:00Z",
+  "depends_on": ["02"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "docs/technical/exercise-catalogue-import-standard.md",
+    "schemas/workflow.md"
+  ],
+  "reference_files": [
+    "web/src/exerciseCatalogueConverter.ts",
+    "web/src/exerciseCatalogueConversion.test.ts",
+    "web/src/types.ts",
+    "web/src/storage.ts"
+  ],
+  "acceptance_criteria": [
+    "Conversion copies every parsed source type value into the canonical exercise type list without forcing it into Strength or Stretch.",
+    "The complete source Exercise type text remains unchanged in category and normalized type values are available for tags or filtering as specified by the model.",
+    "Conversion remains atomic and rejects invalid records, duplicate canonical records, empty IDs, and post-collision duplicate IDs.",
+    "Stable IDs, structured arrays, compatibility instructions, defaults, and immutability remain deterministic for all converted records.",
+    "Conversion tests cover arbitrary and multi-valued categories plus the existing validation and stable-ID failure cases."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueConverter.ts",
+    "web/src/exerciseCatalogueConversion.test.ts"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

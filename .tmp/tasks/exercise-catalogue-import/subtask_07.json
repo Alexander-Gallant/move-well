@@ -1,0 +1,40 @@
+{
+  "id": "exercise-catalogue-import-07",
+  "seq": "07",
+  "title": "Add library count and local-storage regression coverage",
+  "status": "pending",
+  "depends_on": ["06"],
+  "parallel": false,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/data.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.test.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts"
+  ],
+  "acceptance_criteria": [
+    "Regression tests assert the imported source set has exactly 20 unique ids and no duplicate source record is present in the library.",
+    "Regression tests assert all imported records survive writeStorage/readStorage with structured arrays and valid Strength or Stretch types intact.",
+    "Regression tests assert existing starter records and legacy local-storage migration behavior remain valid.",
+    "The focused import/storage tests pass.",
+    "The complete web test suite, lint, and production build pass."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueImport.test.ts",
+    "web/src/storage.test.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/exerciseCatalogueImport.test.ts src/storage.test.ts",
+    "npm --prefix web run test -- --run",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

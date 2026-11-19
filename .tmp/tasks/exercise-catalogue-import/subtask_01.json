@@ -1,0 +1,35 @@
+{
+  "id": "exercise-catalogue-import-01",
+  "seq": "01",
+  "title": "Define the reusable exercise catalogue import standard",
+  "status": "pending",
+  "depends_on": [],
+  "parallel": false,
+  "suggested_agent": "DocumentationAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/workflow.md",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/exercises/exercises-hunched-shoulders-thoracic-kyphosis-2026-11-14.odt",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts"
+  ],
+  "acceptance_criteria": [
+    "The standard specifies the exact ordered fields for one exercise record and the text normalization rules used before parsing.",
+    "The standard defines record boundaries, stable id generation, array delimiters, common-error/error-correction pairing, and source preservation.",
+    "The standard explicitly excludes report introduction, monitoring/referral guidance, and references from exercise records.",
+    "The standard defines conversion of source exercise categories to Strength or Stretch without discarding the original category.",
+    "The standard defines incomplete-record rejection and a repeatable text-fixture extraction approach for ODT catalogues."
+  ],
+  "deliverables": [
+    "docs/technical/exercise-catalogue-import-standard.md"
+  ],
+  "validation_commands": [
+    "test -f docs/technical/exercise-catalogue-import-standard.md"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

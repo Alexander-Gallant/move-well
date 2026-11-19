@@ -1,0 +1,35 @@
+{
+  "id": "exercise-catalogue-import-03",
+  "seq": "03",
+  "title": "Add parser fixture and boundary/error tests",
+  "status": "pending",
+  "depends_on": ["02"],
+  "parallel": false,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/workflow.md",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/exercises/exercises-hunched-shoulders-thoracic-kyphosis-2026-11-14.odt"
+  ],
+  "acceptance_criteria": [
+    "A text fixture derived from the source ODT contains all 20 exercise records and the report-level sections needed to exercise exclusions.",
+    "Tests verify that exactly 20 records are parsed from the source fixture and that record names and ids are not duplicated at the parser boundary.",
+    "Tests verify list parsing for muscles, specific muscles, steps, common errors/corrections, tags, and sources.",
+    "Tests verify introductory, monitoring/referral, and references content is not emitted as an exercise record.",
+    "Tests verify incomplete records are rejected rather than silently returned."
+  ],
+  "deliverables": [
+    "web/src/test/fixtures/exercise-catalogue-hunched-shoulders-thoracic-kyphosis.txt",
+    "web/src/exerciseCatalogueParser.test.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/exerciseCatalogueParser.test.ts"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

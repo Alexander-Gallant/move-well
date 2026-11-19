@@ -1,0 +1,35 @@
+{
+  "id": "full-ods-import-09",
+  "seq": "09",
+  "title": "Run full import, test, lint, and build validation",
+  "status": "pending",
+  "depends_on": ["08"],
+  "parallel": false,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "docs/technical/exercise-catalogue-import-standard.md",
+    "schemas/workflow.md"
+  ],
+  "reference_files": [
+    "web/package.json",
+    "web/src",
+    "schemas/exercises/exercises-hunched-shoulders-thoracic-kyphosis-2026-11-14.ods"
+  ],
+  "acceptance_criteria": [
+    "The full web test suite passes with no skipped or newly weakened assertions.",
+    "The web lint command passes without errors.",
+    "The production web build passes without TypeScript errors.",
+    "The final implementation contains no stale PoC imports, Strength/Stretch-only assumptions, or evidence/source fields in the user-facing model."
+  ],
+  "deliverables": [
+    "Validation results for npm --prefix web run test -- --run",
+    "Validation results for npm --prefix web run lint",
+    "Validation results for npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

@@ -1,0 +1,35 @@
+{
+  "id": "exercise-catalogue-import-02",
+  "seq": "02",
+  "title": "Implement the pure catalogue text parser",
+  "status": "completed",
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-15T00:00:00Z",
+  "depends_on": ["01"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/essential-patterns.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/workflow.md",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/exercises/exercises-hunched-shoulders-thoracic-kyphosis-2026-11-14.odt",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts"
+  ],
+  "acceptance_criteria": [
+    "The parser accepts plain catalogue text and has no DOM, filesystem, or browser-storage dependency.",
+    "The parser emits one raw structured record per documented exercise boundary and preserves all required prose fields.",
+    "The parser normalizes documented list fields into arrays and common errors into error/correction pairs without dropping non-empty values.",
+    "The parser ignores report-level sections and rejects a record missing any required field with an actionable error.",
+    "The parser exposes typed output suitable for a separate conversion step and does not mutate its input text."
+  ],
+  "deliverables": [
+    "web/src/exerciseCatalogueParser.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run build"
+  ],
+  "completed_at": "2026-11-15T00:00:00Z",
+  "completion_summary": "Implemented pure typed catalogue parser with normalization, ordered-field validation, arrays, numbered steps, error pairs, report exclusions, and actionable errors. Build command was blocked by environment permissions."
+}

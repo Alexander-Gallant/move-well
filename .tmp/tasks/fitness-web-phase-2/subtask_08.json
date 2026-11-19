@@ -1,0 +1,47 @@
+{
+  "id": "fitness-web-phase-2-08",
+  "seq": "08",
+  "title": "Add Phase 2 integration and regression test coverage",
+  "status": "pending",
+  "depends_on": ["07"],
+  "parallel": false,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/storage.ts",
+    "web/src/schedule.ts",
+    "web/src/notifications.ts",
+    "web/src/components/RoutineManager.tsx",
+    "web/src/components/ScheduleEditor.tsx",
+    "web/src/components/ReminderSettings.tsx",
+    "web/package.json"
+  ],
+  "acceptance_criteria": [
+    "A user-centric integration suite covers the Phase 2 flow from migrated local state through routine selection, weekly assignment, reminder settings, and reload persistence.",
+    "Tests assert unsupported notification behavior and do not require a real permission prompt, network, or service-worker registration.",
+    "Regression coverage confirms the exercise library, custom exercise validation, random routine generation, and existing navigation still work.",
+    "Tests are deterministic, independent, and use Arrange/Act/Assert structure with clear behavior-focused names.",
+    "The full test suite, lint, and production build pass from a clean web install."
+  ],
+  "deliverables": [
+    "web/src/App.test.tsx",
+    "web/src/test/setup.ts",
+    "web/package.json"
+  ],
+  "validation_commands": [
+    "npm --prefix web ci",
+    "npm --prefix web run test -- --run",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

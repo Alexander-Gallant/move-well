@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-11-18T00:00:00Z",
+  "libraries": {
+    "static-pwa-hosting": {
+      "files": [
+        {
+          "filename": "options.md",
+          "topic": "free Vite React PWA hosting options",
+          "tech_stack": "Vite/React static PWA",
+          "fetched": "2026-11-18T00:00:00Z",
+          "source": "Official documentation (live web fetch)"
+        }
+      ]
+    },
+    "ios-home-screen-web-push": {
+      "files": [
+        {
+          "filename": "ios-home-screen-web-push.md",
+          "topic": "iPhone/iPad Home Screen web apps and Web Push",
+          "tech_stack": "iOS/iPadOS 16.4+, WebKit, Push API, Notifications API, Service Workers",
+          "fetched": "2026-11-18T00:00:00Z",
+          "source": "Context7 API and official documentation"
+        }
+      ]
+    }
+  }
+}

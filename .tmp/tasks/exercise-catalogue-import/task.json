@@ -1,0 +1,48 @@
+{
+  "id": "exercise-catalogue-import",
+  "name": "Exercise Catalogue Import",
+  "status": "active",
+  "objective": "Import 20 structured exercises from the hunched-shoulders catalogue through a reusable parser and preserve local library compatibility.",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/essential-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/workflow.md",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/schemas/exercises/exercises-hunched-shoulders-thoracic-kyphosis-2026-11-14.odt",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/types.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/data.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.ts",
+    "/Users/alexandergallant/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_To_Do/08_Fitness_app/web/src/storage.test.ts"
+  ],
+  "exit_criteria": [
+    "The import standard documents the ordered fields, array delimiters, record boundaries, type mapping, and report-level exclusions.",
+    "The pure parser accepts the documented text format, ignores introduction/monitoring/references, and rejects incomplete exercise records.",
+    "The app library contains all 20 source exercises exactly once with stable ids and structured arrays for muscles, steps, errors, tags, and sources.",
+    "Source exercise categories remain available while app exercise types are valid Strength or Stretch values.",
+    "Existing starter exercises and local-storage reads/writes remain compatible.",
+    "Parser, conversion, count, storage regression, full test, lint, and build checks pass."
+  ],
+  "subtask_count": 7,
+  "completed_count": 0,
+  "created_at": "2026-11-15T00:00:00Z",
+  "completed_at": null,
+  "dependency_graph": {
+    "01": [],
+    "02": ["01"],
+    "03": ["02"],
+    "04": ["02"],
+    "05": ["04"],
+    "06": ["03", "05"],
+    "07": ["06"]
+  },
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/exerciseCatalogueParser.test.ts",
+    "npm --prefix web run test -- --run src/exerciseCatalogueConversion.test.ts",
+    "npm --prefix web run test -- --run",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ]
+}

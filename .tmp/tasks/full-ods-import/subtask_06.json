@@ -1,0 +1,35 @@
+{
+  "id": "full-ods-import-06",
+  "seq": "06",
+  "title": "Add storage and routine regression coverage for type arrays",
+  "status": "pending",
+  "depends_on": ["04"],
+  "parallel": true,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md"
+  ],
+  "reference_files": [
+    "web/src/storage.ts",
+    "web/src/storage.test.ts",
+    "web/src/routine.ts",
+    "web/src/routine.test.ts",
+    "web/src/types.ts",
+    "web/src/data.ts"
+  ],
+  "acceptance_criteria": [
+    "Storage tests prove arbitrary and multi-valued types round-trip with deterministic normalization and legacy scalar data remains readable.",
+    "Storage tests prove malformed type values are rejected or repaired without persisting invalid Exercise records.",
+    "Routine tests prove one exercise can match each of several type groups and remains selectable, filterable, and clonable.",
+    "Existing migration, favorite synchronization, snapshot, and immutability regressions continue to pass."
+  ],
+  "deliverables": [
+    "web/src/storage.test.ts",
+    "web/src/routine.test.ts"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

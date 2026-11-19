@@ -1,0 +1,47 @@
+{
+  "id": "fitness-web-phase-2-03",
+  "seq": "03",
+  "title": "Build isolated multiple-routine management UI",
+  "status": "pending",
+  "depends_on": ["01"],
+  "parallel": true,
+  "suggested_agent": "OpenFrontendSpecialist",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/ui-styling-standards.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/App.css",
+    "web/src/types.ts",
+    "web/src/routine.ts",
+    "web/src/data.ts",
+    "web/src/storage.ts"
+  ],
+  "acceptance_criteria": [
+    "Follows 4-stage design workflow.",
+    "Responsive at all breakpoints.",
+    "A user can save the current generated routine under a non-empty name and see it in a routine list.",
+    "A user can select a saved routine and the selected routine is visibly reflected in the builder/dashboard state.",
+    "Rename validates the name and delete requires confirmation or an equivalent explicit guard; deleting the last routine is prevented with clear feedback.",
+    "Routine management uses stable routine IDs, immutable updates, the versioned storage adapter, semantic controls, visible focus states, and touch targets of at least 44px.",
+    "Component tests cover save, select, rename, delete, and last-routine protection without depending on implementation details."
+  ],
+  "deliverables": [
+    "web/src/components/RoutineManager.tsx",
+    "web/src/components/RoutineManager.css",
+    "web/src/components/RoutineManager.test.tsx"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/components/RoutineManager.test.tsx",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

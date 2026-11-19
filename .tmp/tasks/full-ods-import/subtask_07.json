@@ -1,0 +1,40 @@
+{
+  "id": "full-ods-import-07",
+  "seq": "07",
+  "title": "Wire the full catalogue and arbitrary types through the UI",
+  "status": "completed",
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-16T00:00:00Z",
+  "depends_on": ["04", "05"],
+  "parallel": false,
+  "suggested_agent": "OpenFrontendSpecialist",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    ".opencode/context/ui/web/ui-styling-standards.md",
+    ".opencode/context/core/workflows/design-iteration-overview.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/components/RoutineBuilder.tsx",
+    "web/src/routine.ts",
+    "web/src/types.ts",
+    "web/src/exerciseCatalogueData.ts",
+    "web/src/storage.ts"
+  ],
+  "acceptance_criteria": [
+    "A fresh app seeds the complete 20-record catalogue and never seeds the deleted three-record PoC.",
+    "Exercise cards, details, add-exercise controls, type filters, routine-group controls, and routine selections display and accept arbitrary type values without assuming only Strength and Stretch.",
+    "Exercises with multiple type values are discoverable through each matching type and display their values without lossy coercion.",
+    "UI state, storage writes, favorites, routine generation, and saved snapshots remain usable after selecting arbitrary or multi-valued types.",
+    "The user-facing UI does not expose evidence or source fields as Exercise model properties.",
+    "Follows 4-stage design workflow.",
+    "Responsive at all breakpoints."
+  ],
+  "deliverables": [
+    "web/src/App.tsx",
+    "web/src/components/RoutineBuilder.tsx"
+  ],
+  "completed_at": "2026-11-16T00:00:00Z",
+  "completion_summary": "Wired the full catalogue UI with dynamic multi-type filters, arbitrary type entry, multi-value display, and dynamic routine controls."
+}

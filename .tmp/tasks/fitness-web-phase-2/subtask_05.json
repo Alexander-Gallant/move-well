@@ -1,0 +1,49 @@
+{
+  "id": "fitness-web-phase-2-05",
+  "seq": "05",
+  "title": "Add browser notification capability and reminder settings fallback",
+  "status": "pending",
+  "depends_on": ["01"],
+  "parallel": true,
+  "suggested_agent": "OpenFrontendSpecialist",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/ui-styling-standards.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/App.css",
+    "web/src/types.ts",
+    "web/src/main.tsx",
+    "web/public/manifest.webmanifest",
+    "web/src/storage.ts"
+  ],
+  "acceptance_criteria": [
+    "Follows 4-stage design workflow.",
+    "Responsive at all breakpoints.",
+    "A reminder settings view can enable/disable reminders and edit the configured reminder time using versioned storage.",
+    "Permission request occurs only after an explicit user action and handles granted, denied, default, unsupported, and request-error states.",
+    "Unsupported browsers and platforms show a clear English fallback explaining that reminders remain visible in the schedule but browser notifications are unavailable.",
+    "No notification permission state or exception is treated as a successful notification capability.",
+    "Tests cover capability detection, permission outcomes, persistence, and fallback messaging without invoking a real browser permission prompt."
+  ],
+  "deliverables": [
+    "web/src/notifications.ts",
+    "web/src/notifications.test.ts",
+    "web/src/components/ReminderSettings.tsx",
+    "web/src/components/ReminderSettings.css",
+    "web/src/components/ReminderSettings.test.tsx"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/notifications.test.ts src/components/ReminderSettings.test.tsx",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}

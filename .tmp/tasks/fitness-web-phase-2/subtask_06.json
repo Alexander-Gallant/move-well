@@ -1,0 +1,43 @@
+{
+  "id": "fitness-web-phase-2-06",
+  "seq": "06",
+  "title": "Version PWA precache and runtime cache update behavior",
+  "status": "completed",
+  "agent_id": "coder-agent",
+  "depends_on": [],
+  "parallel": true,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md"
+  ],
+  "reference_files": [
+    "web/public/sw.js",
+    "web/public/manifest.webmanifest",
+    "web/src/main.tsx",
+    "web/vite.config.ts",
+    "web/package.json"
+  ],
+  "acceptance_criteria": [
+    "The service worker precaches the built app shell using a clearly versioned cache name and handles failed optional precache entries without aborting installation.",
+    "Runtime GET requests use an explicit strategy with opaque/error responses handled safely and non-GET requests bypass the cache.",
+    "Activation removes stale Move Well cache versions and claims clients after cleanup.",
+    "A new service worker has a documented update path that does not silently strand users on stale assets; registration failures are non-fatal.",
+    "Cache names and update behavior are deterministic and do not cache user-sensitive local data or non-GET requests.",
+    "The generated production bundle contains the service worker and the service worker passes syntax validation."
+  ],
+  "deliverables": [
+    "web/public/sw.js",
+    "web/src/main.tsx",
+    "web/README.md"
+  ],
+  "validation_commands": [
+    "node --check web/public/sw.js",
+    "npm --prefix web run build",
+    "npm --prefix web run lint"
+  ],
+  "started_at": "2026-10-18T00:00:00Z",
+  "completed_at": "2026-10-18T00:00:00Z",
+  "completion_summary": "Implemented versioned PWA precache/runtime caching, stale cleanup, safe updates, non-fatal registration, and documentation."
+}

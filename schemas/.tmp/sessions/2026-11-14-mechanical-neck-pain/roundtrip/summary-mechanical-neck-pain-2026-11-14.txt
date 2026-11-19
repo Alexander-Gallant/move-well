@@ -1,0 +1,79 @@
+﻿Mechanical Neck Pain / Stiff Neck
+Evidence summary report
+Report date: 14 November 2026
+Search completed: 14 November 2026
+1. Question and Scope
+In adults with acute, subacute, chronic or recurrent nonspecific mechanical neck pain or stiffness, what do exercise, physiotherapy, education, ergonomics and manual therapy contribute to pain, disability, function, mobility, confidence and recurrence-related outcomes compared with usual care, no exercise or another reasonable active programme?
+This is an evidence-informed education document, not a diagnosis or an individualized treatment plan. The term mechanical neck pain is used for local or referred neck symptoms without a separately diagnosed structural, systemic or neurological disorder.
+2. Population and Exclusions
+The intended population is adults with nonspecific neck pain. Evidence for office workers, persistent pain and chronic symptoms is included where relevant. The following require a different assessment pathway rather than a generic exercise list: major trauma or suspected fracture; progressive neurological deficit; signs of myelopathy; severe or new arm symptoms suggesting significant radiculopathy; fever or systemic illness; cancer history with unexplained new pain; inflammatory disease; vascular emergency; postoperative rehabilitation; and other diagnosed pathology.
+3. Safety and Referral Considerations
+Seek urgent medical assessment for sudden severe unusual neck or head pain, fainting or neurological symptoms, new weakness, loss of coordination, difficulty walking, new bowel or bladder disturbance, severe unremitting pain, fever with marked illness, or symptoms after significant trauma.
+Arrange clinical assessment promptly for persistent or worsening symptoms, unexplained weight loss, cancer or immune-suppression history, night pain not affected by position, arm pain with numbness or weakness, balance or hand-function changes, or symptoms that do not behave mechanically. Stop an exercise and seek advice if it causes new spreading pain, electric symptoms, dizziness, visual or speech symptoms, marked headache, weakness, loss of balance, or a substantial and lasting flare.
+For uncomplicated symptoms, a mild temporary increase in local effort or stiffness can occur. Use comfortable ranges, change position regularly, avoid breath-holding, and judge progression by movement quality, confidence, function and next-day recovery rather than by forcing a stretch or chasing pain.
+4. Search Date and Databases
+Search date: 14 November 2026. Sources searched or checked: PubMed/MEDLINE and Europe PMC for indexed literature; Cochrane Library; publisher and DOI pages; ACR Appropriateness Criteria; APTA/JOSPT guideline records; and guideline literature indexed in Europe. Google Scholar, PEDro, Embase, CINAHL and SPORTDiscus were specified by the workflow but were not directly accessible in this session; this is a limitation.
+5. Exact Search Strings
+The following reproducible concept searches were used or adapted:
+    • ("neck pain" OR "cervical pain" OR "nonspecific neck pain" OR stiff neck) AND (exercise OR physiotherapy OR "physical therapy" OR strengthening OR "motor control" OR stretching OR aerobic OR walking) AND (guideline OR "systematic review" OR meta-analysis OR randomized) 
+    • ("neck pain" OR cervicalgia) AND (manual therapy OR manipulation OR mobilization) AND exercise AND (systematic review OR Cochrane) 
+    • (chronic neck pain) AND (scapular OR deep cervical flexor OR endurance OR resistance) AND (systematic review OR meta-analysis OR trial) 
+    • ("neck pain") AND (education OR self-management OR ergonomics OR posture OR office worker) AND (systematic review OR meta-analysis OR guideline) 
+6. Inclusion and Exclusion Criteria
+Included were adult clinical guidelines, systematic reviews, meta-analyses, Cochrane reviews and relevant randomized trials addressing reproducible exercise, education, ergonomics or manual therapy with outcomes such as pain, disability, function, mobility, quality of life or adverse events. Postoperative, traumatic, inflammatory, malignant, infectious, vascular and clearly neurological populations were excluded or separated. Mixed interventions are described as mixed interventions rather than as proof for exercise alone.
+7. Evidence Hierarchy and Appraisal
+Guidelines were considered before systematic reviews, then Cochrane evidence and newer trials. Certainty was interpreted from the methods and limitations reported by each source rather than from a numerical score alone. Common limitations were heterogeneous exercise programmes, small trials, short follow-up, unblinded participants, inconsistent adherence reporting and difficulty separating exercise from co-interventions.
+8. Key Guidelines and Reviews
+Source	Contribution	Interpretive confidence
+El-Allawy et al., 2025, German S3 guideline	Current nonspecific neck-pain guidance; supports assessment, active management and individualized care while distinguishing specific pathology.	High for scope and clinical framework; intervention effects remain mixed.
+Blanpied et al., 2017, APTA/JOSPT guideline	Classifies neck-pain presentations and supports exercise, education and selected manual therapy according to presentation.	Useful clinical framework; update age is a limitation.
+Corp et al., 2020, guideline systematic review	Shows broad agreement across European guidance for advice, activity and exercise, with variation in specific programmes.	Moderate; guideline quality and recommendations varied.
+Chacko et al., 2025, Cochrane review	Manual therapy combined with exercise may help some outcomes, but effects and certainty vary; manual therapy should not displace active care.	Moderate to low depending on comparison and outcome.
+Jones et al., 2024, exercise meta-analysis	Exercise is associated with improvements in pain, disability and quality of life in office workers with chronic neck pain.	Moderate; population and programme heterogeneity limit exact prescriptions.
+Valenza-Pena et al., 2023, self-care education review	Education may improve pain and disability, especially as part of a broader active programme.	Low to moderate; education content and comparators varied.
+Chen et al., 2024, scapular-treatment review	Scapular-focused treatment may improve pain or disability in chronic neck pain, but it has not established superiority over other reasonable exercise.	Low to moderate; heterogeneous interventions and trials.
+Lin et al., 2023, pain-neuroscience education review	May reduce pain and fear of movement when integrated with care; not a replacement for assessment and graded activity.	Low to moderate; adjunctive intervention and variable protocols.
+9. What Is Known to Help
+Progressive exercise and staying active: Supported / probably beneficial
+Structured exercise is a reasonable first-line component for persistent nonspecific neck pain. Programmes using strengthening, motor control, endurance, mobility, or combinations can produce modest improvements in pain and disability compared with minimal care. Benefits are more consistently supported at the category level than for any single named exercise. Regular general activity and walking are useful low-barrier ways to reduce prolonged inactivity, although walking has not been proven uniquely superior for neck pain.
+Strength, endurance and motor control: Probably beneficial; no clear superiority
+Neck flexor endurance, cervical isometrics, shoulder-girdle strengthening and scapular control are reasonable options when they match the person's impairments and goals. Evidence does not establish that deep cervical flexor training, scapular exercise, posture drills or one branded system is universally better than another credible progressive programme. Begin with a tolerable load and progress repetitions, hold time, resistance, range or functional demand one variable at a time.
+Education and self-management: Probably beneficial as an adjunct
+Education about the usually favourable nature of nonspecific symptoms, activity modification, pacing, sleep, confidence and graded exposure can support participation. Advice should not imply that one posture is inherently damaging or that the neck must be held rigidly. Education works best when linked to an active plan and shared decisions.
+10. What Is Uncertain
+    • The optimal frequency, intensity, duration and progression of exercise are not established. A practical starting point is short, controlled sessions two or three times weekly plus regular movement, then adjustment by response. 
+    • The relative value of specific exercise families is uncertain because trials use different doses, combinations and comparators. 
+    • Long-term recurrence prevention, adherence strategies, and effects in older adults or people with substantial comorbidity remain incompletely studied. 
+    • Ergonomic changes can improve comfort or exposure to aggravating tasks, but workstation correction alone is not a consistently established standalone treatment. 
+11. What Is Not Supported or Not Clearly Superior
+    • Stretching alone should not be presented as a complete treatment or as correction of a presumed structural cause. It may be useful for temporary comfort or mobility. 
+    • Manual therapy alone is not a substitute for active rehabilitation. When used, it is best framed as a short-term adjunct that helps movement confidence or tolerance. 
+    • No single exercise, posture, device, muscle target or branded programme has demonstrated universal superiority for nonspecific neck pain. 
+    • Routine imaging is not automatically indicated for uncomplicated mechanical neck pain. Imaging decisions should follow clinical assessment and applicable criteria, including the ACR cervical-pain recommendations. 
+12. Knowledge Gaps
+Research needs better standardization of exercise dose, clearer adverse-event reporting, longer follow-up, clinically meaningful responder outcomes, adherence measurement, pragmatic comparisons between equally credible programmes, and studies that distinguish local nonspecific pain from radicular or myelopathic presentations. More evidence is also needed on recurrence, work participation and individualized progression.
+13. Practical Implications
+    1. Screen for red flags and neurologic symptoms before self-management. 
+    2. Choose one or two comfortable mobility drills and two or three low-load strengthening or endurance drills. 
+    3. Use a starting dose that leaves repetitions controlled and breathing relaxed; increase demand only when symptoms settle by the next day. 
+    4. Combine exercise with regular activity, task variation, sleep and confidence-building education. 
+    5. Use manual therapy only if it provides a meaningful short-term window for active practice and does not replace progression. 
+    6. Reassess if symptoms worsen, spread, develop neurological features, or fail to improve as expected. 
+14. Summary Report File
+summary-mechanical-neck-pain-2026-11-14.odt
+15. Separate Exercise Report File
+exercises-mechanical-neck-pain-2026-11-14.odt contains novice-complete exercise descriptions. The evidence category applies primarily to the intervention category, not proof that each named exercise is uniquely effective.
+16. Adherence and Report-Level Symptom Monitoring
+Record the activity, dose, confidence, symptoms during the session and recovery by the following day. A useful progression signal is improved control or function with stable or improving next-day symptoms. Reduce range, repetitions, resistance or frequency when symptoms repeatedly flare, and seek assessment when the warning symptoms in Section 3 occur. Do not use a pain score alone to judge safety or success.
+17. References
+    1. El-Allawy A, Hecht N, Luedtke K, Schleicher P, Weidner N, Kotter T. Nonspecific neck pain. Deutsches Arzteblatt International. 2025. DOI: 10.3238/arztebl.m2025.0119. 
+    2. Blanpied PR, et al. Neck Pain: Revision 2017. Journal of Orthopaedic & Sports Physical Therapy. 2017;47(7):A1-A83. DOI: 10.2519/jospt.2017.0302. 
+    3. Corp N, et al. Evidence-based treatment recommendations for neck and low back pain across Europe: a systematic review of guidelines. European Journal of Pain. 2020;25(2):275-295. DOI: 10.1002/ejp.1679. 
+    4. Chacko N, et al. Manual therapy with exercise for neck pain. Cochrane Database of Systematic Reviews. 2025;12. DOI: 10.1002/14651858.CD011225.pub2. 
+    5. Jones LB, Jadhakhan F, Falla D. The influence of exercise on pain, disability and quality of life in office workers with chronic neck pain: a systematic review and meta-analysis. Applied Ergonomics. 2024;117:104216. DOI: 10.1016/j.apergo.2023.104216. 
+    6. Valenza-Pena G, et al. Effectiveness of self-care education for chronic neck pain: a systematic review and meta-analysis. Healthcare. 2023;11(24):3161. DOI: 10.3390/healthcare11243161. 
+    7. Chen Y, et al. Effects of scapular treatment on chronic neck pain: a systematic review and meta-analysis of randomized controlled trials. BMC Musculoskeletal Disorders. 2024;25. DOI: 10.1186/s12891-024-07220-8. 
+    8. Lin LH, et al. Pain neuroscience education for reducing pain and kinesiophobia in patients with chronic neck pain: a systematic review and meta-analysis. European Journal of Pain. 2023;28(2):231-243. DOI: 10.1002/ejp.2182. 
+    9. American College of Radiology. ACR Appropriateness Criteria: Cervical Pain or Cervical Radiculopathy. https://acsearch.acr.org/docs/69426/Narrative/. 
+18. Limitations and Date for Updating the Search
+Several publisher and database pages were rate-limited or blocked during retrieval, and not every database in the workflow was directly searchable. DOI metadata was verified for the main sources listed above, but individual effect estimates should be checked against the full texts before publication or clinical guideline use. Update this search after a major guideline, a high-quality new review, a safety signal, or within two to three years.

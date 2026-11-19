@@ -1,0 +1,47 @@
+{
+  "id": "fitness-web-phase-2-01",
+  "seq": "01",
+  "title": "Define Phase 2 domain types and versioned local storage migration",
+  "status": "completed",
+  "agent_id": "coder-agent",
+  "started_at": "2026-10-18T00:00:00Z",
+  "depends_on": [],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    "web/package.json",
+    "web/src/types.ts",
+    "web/src/routine.ts",
+    "web/src/App.tsx",
+    "web/src/data.ts"
+  ],
+  "acceptance_criteria": [
+    "Types represent multiple named routines, a weekly recurring schedule with day/time/routine assignment, and reminder settings including enabled state and notification capability state.",
+    "A versioned storage envelope and adapter centralize reads/writes instead of scattering raw localStorage parsing across components.",
+    "Legacy move-well-exercises and move-well-routine data is migrated without losing valid exercises or routine exercise selections.",
+    "Malformed, unsupported, or unavailable storage data falls back to safe defaults and does not throw during app startup.",
+    "Storage migration and validation behavior has deterministic unit tests, and the test command is configured in web/package.json."
+  ],
+  "deliverables": [
+    "web/src/types.ts",
+    "web/src/storage.ts",
+    "web/src/storage.test.ts",
+    "web/package.json",
+    "web/package-lock.json",
+    "web/vitest.config.ts"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/storage.test.ts",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": "2026-10-18T00:00:00Z",
+  "completion_summary": "Added validated versioned storage types, legacy migration, safe adapter, deterministic tests, and Vitest config."
+}

@@ -1,0 +1,47 @@
+{
+  "id": "fitness-web-phase-2-04",
+  "seq": "04",
+  "title": "Build functional weekly schedule editor",
+  "status": "pending",
+  "depends_on": ["01", "02"],
+  "parallel": true,
+  "suggested_agent": "OpenFrontendSpecialist",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/ui-styling-standards.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/App.css",
+    "web/src/types.ts",
+    "web/src/data.ts",
+    "web/src/schedule.ts",
+    "web/src/storage.ts"
+  ],
+  "acceptance_criteria": [
+    "Follows 4-stage design workflow.",
+    "Responsive at all breakpoints.",
+    "Each weekday can be assigned zero or more saved routines with a valid local time.",
+    "Users can add, edit, and remove a day assignment and the weekly view clearly distinguishes rest days from scheduled sessions.",
+    "The editor uses the pure schedule functions and persists changes through the versioned storage adapter rather than duplicating recurrence logic.",
+    "Invalid or missing routine selections are rejected with clear English feedback and no partial corrupt write.",
+    "Component tests cover assignment, edit, removal, rest-day rendering, and invalid input behavior."
+  ],
+  "deliverables": [
+    "web/src/components/ScheduleEditor.tsx",
+    "web/src/components/ScheduleEditor.css",
+    "web/src/components/ScheduleEditor.test.tsx"
+  ],
+  "validation_commands": [
+    "npm --prefix web run test -- --run src/components/ScheduleEditor.test.tsx",
+    "npm --prefix web run lint",
+    "npm --prefix web run build"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": null,
+  "completion_summary": null
+}
