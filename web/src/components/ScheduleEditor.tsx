@@ -15,6 +15,10 @@ import {
   type StorageAdapter,
 } from '../storage'
 import type { FitnessStorageState, SavedRoutine, Weekday, WeeklyScheduleEntry } from '../types'
+import type { PushApiClient, PushApiError } from '../pushApi'
+import { createPushCredentialStore, type PushCredentialStore } from '../pushCredentials'
+import { getRemoteScheduleFeedback, remoteScheduleSuccessFeedback, uploadRemoteSchedule, type RemoteScheduleFeedback } from '../remoteSchedule'
+import type { ReminderSettings } from '../types'
 import './ScheduleEditor.css'
 
 export type ScheduleEditorProps = {
@@ -26,6 +30,10 @@ export type ScheduleEditorProps = {
   /** Alias for consumers that use the shorter change-handler name. */
   onChange?: (schedule: WeeklyScheduleEntry[]) => void
   createEntryId?: () => string
+  pushApi?: PushApiClient | null
+  pushApiError?: PushApiError | null
+  pushCredentialStore?: PushCredentialStore
+  reminderSettings?: ReminderSettings
 }
 
 type AssignmentForm = {
@@ -90,6 +98,9 @@ function ScheduleEditor({
   onScheduleChange,
   onChange,
   createEntryId = createStableEntryId,
+  pushApi = null,
+  pushCredentialStore,
+  reminderSettings,
 }: ScheduleEditorProps) {
   const adapter = useMemo(
     () => storageAdapter ?? storage ?? createStorageAdapter(),
@@ -100,6 +111,9 @@ function ScheduleEditor({
   const [editingId, setEditingId] = useState<string | null>(null)
   const [form, setForm] = useState<AssignmentForm>(() => emptyForm(storageState.routines[0]?.id))
   const [feedback, setFeedback] = useState<Feedback | null>(null)
+  const [remoteFeedback, setRemoteFeedback] = useState<RemoteScheduleFeedback | null>(null)
+  const [remoteBusy, setRemoteBusy] = useState(false)
+  const credentials = useMemo(() => pushCredentialStore ?? createPushCredentialStore(), [pushCredentialStore])
 
   const routines = suppliedRoutines ?? storageState.routines
   const entriesByDay = useMemo(
@@ -141,6 +155,17 @@ function ScheduleEditor({
     setStorageState(nextState)
     onScheduleChange?.(schedule)
     onChange?.(schedule)
+    if (pushApi && credentials.read() && reminderSettings) {
+      setRemoteBusy(true)
+      void uploadRemoteSchedule(pushApi, reminderSettings, schedule)
+        .then(() => setRemoteFeedback(remoteScheduleSuccessFeedback))
+        .catch((error) => {
+          const nextFeedback = getRemoteScheduleFeedback(error)
+          if (nextFeedback.status === 'unauthorized') credentials.clear()
+          setRemoteFeedback(nextFeedback)
+        })
+        .finally(() => setRemoteBusy(false))
+    }
     return true
   }
 
@@ -204,6 +229,7 @@ function ScheduleEditor({
       </header>
 
       {feedback && <p className={`schedule-editor__feedback schedule-editor__feedback--${feedback.tone}`} role={feedback.tone === 'error' ? 'alert' : 'status'}>{feedback.message}</p>}
+      {remoteFeedback && <p className="schedule-editor__remote-feedback" aria-live="polite" role="status">{remoteBusy ? 'Updating remote reminder schedule…' : remoteFeedback.message}</p>}
 
       {isFormOpen && (
         <form className="schedule-editor__form" noValidate onSubmit={saveAssignment} aria-labelledby="schedule-form-title">

@@ -1,0 +1,38 @@
+{
+  "id": "personal-push-backend-10",
+  "seq": "10",
+  "title": "Document deployment, pairing, rollback, and Step 4 boundary",
+  "status": "completed",
+  "depends_on": ["09"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    "step-by-step.md",
+    "web/README.md",
+    "docs/technical/phase-2-architecture.md",
+    "docs/decisions/phase-2-local-first.md",
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md"
+  ],
+  "acceptance_criteria": [
+    "Documentation lists D1 creation/migration, Worker deployment, secret setup, VAPID public-key configuration, allowed origins, pairing, device reset, and subscription removal without containing real secret values.",
+    "Deployment instructions include local/test validation and explicitly keep the Pages frontend separate from the Worker API.",
+    "Documentation states that exercises, routines, and generated workout data remain local and that Step 4 scheduled push delivery is not implemented by this feature.",
+    "The final web tests, lint, build, Worker tests, and configuration validation commands are recorded and pass before completion."
+  ],
+  "deliverables": [
+    "worker/README.md",
+    "web/README.md",
+    "docs/technical/personal-push-backend.md",
+    "step-by-step.md"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Documented separate Pages/Worker deployment, D1 migration, origins, encrypted secrets, pairing, reset/revoke, validation, and Step 4 boundary."
+}

@@ -1,0 +1,58 @@
+{
+  "id": "personal-push-backend-09",
+  "seq": "09",
+  "title": "Wire explicit client subscription and schedule uploads",
+  "status": "completed",
+  "depends_on": [
+    "07",
+    "08"
+  ],
+  "parallel": false,
+  "suggested_agent": "OpenFrontendSpecialist",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/ui-styling-standards.md",
+    "/Users/alexandergallant/.opencode/context/core/workflows/design-iteration-overview.md"
+  ],
+  "reference_files": [
+    "web/src/App.tsx",
+    "web/src/push.ts",
+    "web/src/push.test.ts",
+    "web/src/storage.ts",
+    "web/src/schedule.ts",
+    "web/src/types.ts",
+    "web/src/components/ReminderSettings.tsx",
+    "web/src/components/ReminderSettings.test.tsx",
+    "web/src/components/ScheduleEditor.tsx",
+    "web/src/components/ScheduleEditor.test.tsx",
+    "docs/decisions/phase-2-local-first.md",
+    "docs/technical/phase-2-architecture.md",
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md"
+  ],
+  "acceptance_criteria": [
+    "Pairing and subscription upload remain behind an explicit user action after notification permission is granted; no upload occurs on page load or from an unrelated background effect.",
+    "The client projects only the reminder enabled state, configured local time, detected IANA timezone, and matching weekday mask to the API; exercises, routines, routine ids, and generated sessions never leave the device.",
+    "Changing reminder settings or weekly assignments updates the remote schedule when credentials exist, while local persistence and foreground reminder fallback continue to work when the API is unavailable.",
+    "Existing subscriptions are reused, registration can be retried, and UI feedback distinguishes unconfigured, unauthorized, offline, and successful states without displaying tokens.",
+    "Follows 4-stage design workflow.",
+    "Responsive at all breakpoints.",
+    "Client component, projection, and integration tests pass without changing exercise or routine behavior."
+  ],
+  "deliverables": [
+    "web/src/remoteSchedule.ts",
+    "web/src/remoteSchedule.test.ts",
+    "web/src/components/ReminderSettings.tsx",
+    "web/src/components/ReminderSettings.test.tsx",
+    "web/src/components/ScheduleEditor.tsx",
+    "web/src/components/ScheduleEditor.test.tsx",
+    "web/src/App.tsx",
+    "web/src/App.test.tsx"
+  ],
+  "agent_id": null,
+  "started_at": null,
+  "completed_at": "2026-11-19T16:03:33.922Z",
+  "completion_summary": "Explicit pairing/push registration, four-field schedule projection, credential-aware remote sync, safe status feedback, and focused tests. Web tests, lint, and build pass."
+}

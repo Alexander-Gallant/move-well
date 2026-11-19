@@ -13,10 +13,18 @@ import {
   type PushRegistrationStatus,
 } from '../push'
 import {
+  getRemoteScheduleFeedback,
+  projectReminderSchedule,
+  remoteScheduleSuccessFeedback,
+  type RemoteScheduleFeedback,
+} from '../remoteSchedule'
+import type { PushApiClient, PushApiError } from '../pushApi'
+import { createPushCredentialStore, type PushCredentialStore } from '../pushCredentials'
+import {
   createStorageAdapter,
   type StorageAdapter,
 } from '../storage'
-import type { ReminderSettings as ReminderSettingsData } from '../types'
+import type { ReminderSettings as ReminderSettingsData, WeeklyScheduleEntry } from '../types'
 import './ReminderSettings.css'
 
 export type ReminderSettingsProps = {
@@ -26,6 +34,10 @@ export type ReminderSettingsProps = {
   notificationApi?: NotificationApi | null
   pushDependencies?: PushRegistrationDependencies
   foregroundError?: string
+  pushApi?: PushApiClient | null
+  pushApiError?: PushApiError | null
+  pushCredentialStore?: PushCredentialStore
+  schedule?: readonly WeeklyScheduleEntry[]
 }
 
 const VALID_TIME = /^(?:[01]\d|2[0-3]):[0-5]\d$/
@@ -37,10 +49,31 @@ const getPermissionActionLabel = (capability: ReminderSettingsData['notification
 }
 
 const getPushActionLabel = (status: PushRegistrationStatus | 'idle'): string => (
-  status === 'error' ? 'Try push registration again' : 'Register this device for push'
+  status === 'error' ? 'Try device registration again' : 'Register this device for push'
 )
 
-function ReminderSettings({ storage, storageAdapter, notificationApi, pushDependencies, foregroundError = '' }: ReminderSettingsProps) {
+const getConfigurationFeedback = (pushApi: PushApiClient | null | undefined, pushApiError: PushApiError | null | undefined, isPaired: boolean): RemoteScheduleFeedback => {
+  if (pushApi && !pushApiError) {
+    return isPaired
+      ? { status: 'success', message: 'This device is paired. Register push to sync remote reminders.' }
+      : { status: 'unpaired', message: 'Pair this device to enable private remote reminders.' }
+  }
+  return pushApiError
+    ? getRemoteScheduleFeedback(pushApiError)
+    : { status: 'unconfigured', message: 'Remote reminder sync is not configured. Local reminders remain available.' }
+}
+
+function ReminderSettings({
+  storage,
+  storageAdapter,
+  notificationApi,
+  pushDependencies,
+  foregroundError = '',
+  pushApi = null,
+  pushApiError = null,
+  pushCredentialStore,
+  schedule = [],
+}: ReminderSettingsProps) {
   const adapter = useMemo(
     () => storageAdapter ?? storage ?? createStorageAdapter(),
     [storage, storageAdapter],
@@ -59,8 +92,22 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, pushDepend
   }))
   const [isRequesting, setIsRequesting] = useState(false)
   const [pushStatus, setPushStatus] = useState<PushRegistrationStatus | 'idle'>('idle')
+  const credentials = useMemo(() => pushCredentialStore ?? createPushCredentialStore(), [pushCredentialStore])
+  const [pairingCode, setPairingCode] = useState('')
+  const [remoteBusy, setRemoteBusy] = useState(false)
+  const [isPaired, setIsPaired] = useState(() => credentials.read() !== null)
+  const [remoteFeedback, setRemoteFeedback] = useState<RemoteScheduleFeedback>(() => getConfigurationFeedback(pushApi, pushApiError, credentials.read() !== null))
   const [persistenceError, setPersistenceError] = useState(false)
   const [timeError, setTimeError] = useState('')
+
+  const showRemoteError = (error: unknown) => {
+    const nextFeedback = getRemoteScheduleFeedback(error)
+    if (nextFeedback.status === 'unauthorized') {
+      credentials.clear()
+      setIsPaired(false)
+    }
+    setRemoteFeedback(nextFeedback)
+  }
 
   const persistSettings = useCallback((nextSettings: ReminderSettingsData) => {
     try {
@@ -76,14 +123,20 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, pushDepend
     const nextSettings = { ...settings, ...changes }
     setSettings(nextSettings)
     persistSettings(nextSettings)
+    void syncSchedule(nextSettings)
   }
 
-  const registerPush = async (notificationPermission: NotificationPermission) => {
-    const result = await subscribeForPush({
-      ...pushDependencies,
-      notificationPermission,
-    })
-    setPushStatus(result.status)
+  const syncSchedule = async (nextSettings: ReminderSettingsData = settings) => {
+    if (!pushApi || !isPaired) return
+    setRemoteBusy(true)
+    try {
+      await pushApi.uploadSchedule(projectReminderSchedule(nextSettings, schedule))
+      setRemoteFeedback(remoteScheduleSuccessFeedback)
+    } catch (error) {
+      showRemoteError(error)
+    } finally {
+      setRemoteBusy(false)
+    }
   }
 
   const handlePermissionRequest = async () => {
@@ -92,8 +145,47 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, pushDepend
     const nextSettings = { ...settings, notificationCapability: capability }
     setSettings(nextSettings)
     persistSettings(nextSettings)
-    if (capability === 'granted') await registerPush(capability)
     setIsRequesting(false)
+  }
+
+  const pairDevice = async () => {
+    if (!pushApi || !pairingCode.trim()) return
+    setRemoteBusy(true)
+    try {
+      await pushApi.pair(pairingCode.trim())
+      setPairingCode('')
+      setIsPaired(true)
+      setRemoteFeedback({ status: 'success', message: 'Device paired. Register push to finish setup.' })
+    } catch (error) {
+      showRemoteError(error)
+    } finally {
+      setRemoteBusy(false)
+    }
+  }
+
+  const registerDevice = async () => {
+    if (!pushApi) return
+    setIsRequesting(true)
+    setRemoteBusy(true)
+    try {
+      const result = await subscribeForPush({
+        ...pushDependencies,
+        notificationPermission: 'granted',
+      })
+      setPushStatus(result.status)
+      if (result.status !== 'subscribed' || !result.subscription) {
+        showRemoteError(new Error('Push subscription unavailable'))
+        return
+      }
+      await pushApi.uploadPush(result.subscription)
+      await pushApi.uploadSchedule(projectReminderSchedule(settings, schedule))
+      setRemoteFeedback({ status: 'success', message: 'This device and its reminder schedule are registered.' })
+    } catch (error) {
+      showRemoteError(error)
+    } finally {
+      setRemoteBusy(false)
+      setIsRequesting(false)
+    }
   }
 
   const handleTimeChange = (time: string) => {
@@ -108,9 +200,7 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, pushDepend
 
   const capability = settings.notificationCapability
   const canRequestPermission = capability !== 'unsupported' && capability !== 'granted'
-  const canRegisterPush = capability === 'granted'
-    && pushStatus !== 'subscribed'
-    && pushStatus !== 'unsupported'
+  const canRegisterPush = capability === 'granted' && Boolean(pushApi) && isPaired
 
   return (
     <section aria-labelledby="reminder-settings-title" className="reminder-settings">
@@ -174,16 +264,42 @@ function ReminderSettings({ storage, storageAdapter, notificationApi, pushDepend
           <button
             className="reminder-settings__permission-button"
             disabled={isRequesting}
-            onClick={() => {
-              setIsRequesting(true)
-              void registerPush('granted').finally(() => setIsRequesting(false))
-            }}
+             onClick={() => { void registerDevice() }}
             type="button"
           >
-            {isRequesting ? 'Registering device…' : getPushActionLabel(pushStatus)}
-          </button>
+             {isRequesting ? 'Registering device…' : getPushActionLabel(pushStatus)}
+           </button>
         )}
         {pushStatus !== 'idle' && <p>{getPushRegistrationMessage(pushStatus)}</p>}
+      </div>
+
+      <div className="reminder-settings__remote" aria-labelledby="remote-reminder-title">
+        <strong id="remote-reminder-title">Private remote reminders</strong>
+        <p>Only your push subscription and four-field reminder projection leave this device. Exercises and routines stay local.</p>
+        {!isPaired && pushApi && (
+          <div className="reminder-settings__pairing">
+            <label htmlFor="pairing-code">Pairing code</label>
+            <input
+              id="pairing-code"
+              autoComplete="off"
+              onChange={(event) => setPairingCode(event.currentTarget.value)}
+              value={pairingCode}
+            />
+            <button
+              className="reminder-settings__permission-button"
+              disabled={remoteBusy || pairingCode.trim().length === 0}
+              onClick={() => { void pairDevice() }}
+              type="button"
+            >
+              {remoteBusy ? 'Pairing device…' : 'Pair this device'}
+            </button>
+          </div>
+        )}
+        {isPaired && capability !== 'granted' && <p>Allow browser notifications, then register this device for remote reminders.</p>}
+        {isPaired && capability === 'granted' && !canRegisterPush && <p>Push registration is unavailable in this browser; local reminders still work.</p>}
+        <p className={`reminder-settings__remote-status reminder-settings__remote-status--${remoteFeedback.status}`} aria-live="polite">
+          {remoteFeedback.message}
+        </p>
       </div>
 
       {persistenceError && (

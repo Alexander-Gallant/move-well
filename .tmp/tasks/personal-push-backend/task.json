@@ -1,0 +1,44 @@
+{
+  "id": "personal-push-backend",
+  "name": "Personal Push Backend",
+  "status": "completed",
+  "objective": "Add a minimal private Cloudflare Worker + D1 API and upload only push/reminder data while exercises and routines remain local.",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/workflows/feature-breakdown.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/ui-styling-standards.md"
+  ],
+  "reference_files": [
+    "step-by-step.md",
+    "web/README.md",
+    "web/package.json",
+    "web/src/App.tsx",
+    "web/src/push.ts",
+    "web/src/notifications.ts",
+    "web/src/storage.ts",
+    "web/src/schedule.ts",
+    "web/src/types.ts",
+    "web/src/components/ReminderSettings.tsx",
+    "web/src/components/ScheduleEditor.tsx",
+    "docs/technical/phase-2-architecture.md",
+    "docs/decisions/phase-2-local-first.md",
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md"
+  ],
+  "exit_criteria": [
+    "A separate Worker project is configured for D1, strict CORS, and encrypted secret bindings without checked-in secrets.",
+    "D1 stores only device credentials, push subscription fields, and the minimal reminder schedule; exercises and routines are never uploaded.",
+    "Pairing, authenticated subscription, schedule, status, and revoke flows validate input and reject unauthorized requests.",
+    "The client uploads a push subscription and minimal schedule only after explicit user action, with runtime device credentials kept out of source and build variables.",
+    "Backend and client tests cover happy paths, invalid input, authorization failures, CORS, token handling, and local-first preservation.",
+    "Step 4 push delivery and Cron sending remain unimplemented and are clearly documented as a later phase."
+  ],
+  "subtask_count": 10,
+  "completed_count": 10,
+  "created_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T17:57:00Z"
+}

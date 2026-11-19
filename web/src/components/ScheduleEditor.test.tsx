@@ -1,13 +1,15 @@
 // @vitest-environment jsdom
 
 import '@testing-library/jest-dom/vitest'
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { starterExercises, starterRoutineGroups } from '../data'
 import { createDefaultStorageState, createStorageAdapter, type StorageLike } from '../storage'
 import type { RoutineSelection, SavedRoutine, WeeklyScheduleEntry } from '../types'
 import ScheduleEditor from './ScheduleEditor'
+import type { PushApiClient } from '../pushApi'
+import { createPushCredentialStore } from '../pushCredentials'
 
 afterEach(() => cleanup())
 
@@ -16,6 +18,7 @@ class MemoryStorage implements StorageLike {
 
   getItem(key: string): string | null { return this.values.get(key) ?? null }
   setItem(key: string, value: string): void { this.values.set(key, value) }
+  removeItem(key: string): void { this.values.delete(key) }
 }
 
 const createSelections = (): RoutineSelection[] => starterRoutineGroups.map((group) => ({
@@ -121,5 +124,40 @@ describe('ScheduleEditor', () => {
     await user.click(screen.getByRole('button', { name: 'Save assignment' }))
     expect(screen.getByRole('alert')).toHaveTextContent(/choose a saved routine/i)
     expect(adapter.read().schedule).toEqual([])
+  })
+
+  it('updates only the remote reminder projection after a local assignment is saved', async () => {
+    const user = userEvent.setup()
+    const adapter = createHarness()
+    const credentialStorage = new MemoryStorage()
+    const credentialStore = createPushCredentialStore(credentialStorage)
+    credentialStore.write({ deviceId: 'device_1', deviceToken: 'token_1' })
+    const uploadSchedule = vi.fn(async (_schedule: unknown) => ({
+      deviceId: 'device_1',
+      schedule: { enabled: true, localTime: '09:00', timezone: 'UTC', weekdayMask: 1 },
+      updatedAt: '2026-11-19T12:34:56Z',
+    }))
+    const pushApi = { uploadSchedule } as unknown as PushApiClient
+
+    render(
+      <ScheduleEditor
+        createEntryId={() => 'remote-assignment'}
+        pushApi={pushApi}
+        pushCredentialStore={credentialStore}
+        reminderSettings={{ enabled: true, time: '09:00', notificationCapability: 'granted' }}
+        storageAdapter={adapter}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Add assignment' }))
+    await user.click(screen.getByRole('button', { name: 'Save assignment' }))
+
+    await waitFor(() => expect(uploadSchedule).toHaveBeenCalledWith({
+      enabled: true,
+      localTime: '09:00',
+      timezone: expect.any(String),
+      weekdayMask: 1,
+    }))
+    expect(JSON.stringify(uploadSchedule.mock.calls[0]?.[0])).not.toContain('routineId')
   })
 })

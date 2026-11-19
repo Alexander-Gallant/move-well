@@ -3,6 +3,8 @@ import { createExercise, createRoutineGroup, createUniqueExerciseId, filterExerc
 import { createStorageAdapter, getOrCreateWorkoutSession, type StorageAdapter } from './storage'
 import { checkAndDisplayDueReminder, getNotificationApi, type ForegroundReminderState } from './notifications'
 import { getNextScheduleOccurrence } from './schedule'
+import { createPushApi, PushApiError, type PushApiClient } from './pushApi'
+import { createPushCredentialStore, type PushCredentialStore } from './pushCredentials'
 import RoutineManager from './components/RoutineManager'
 import ScheduleEditor from './components/ScheduleEditor'
 import ReminderSettings from './components/ReminderSettings'
@@ -55,6 +57,14 @@ function App({ now: initialDate }: AppProps = {}) {
   const foregroundReminderState = useRef<ForegroundReminderState>({ lastHandledMinute: null })
   const routineGroupIdCounter = useRef(0)
   const notificationApi = useMemo(() => getNotificationApi(), [])
+  const pushCredentialStore = useMemo<PushCredentialStore>(() => createPushCredentialStore(), [])
+  const remotePush = useMemo<{ api: PushApiClient | null; error: PushApiError | null }>(() => {
+    try {
+      return { api: createPushApi(), error: null }
+    } catch (error) {
+      return { api: null, error: error instanceof PushApiError ? error : null }
+    }
+  }, [])
 
   const exercises = storageState.exercises
   const selectedRoutine = storageState.routines.find((savedRoutine) => savedRoutine.id === selectedRoutineId)
@@ -294,10 +304,24 @@ function App({ now: initialDate }: AppProps = {}) {
           />
         )}
         {activeView === 'Schedule' && (
-          <ScheduleEditor routines={storageState.routines} storageAdapter={sharedStorageAdapter} />
+          <ScheduleEditor
+            pushApi={remotePush.api}
+            pushApiError={remotePush.error}
+            pushCredentialStore={pushCredentialStore}
+            reminderSettings={storageState.reminders}
+            routines={storageState.routines}
+            storageAdapter={sharedStorageAdapter}
+          />
         )}
         {activeView === 'Reminders' && (
-          <ReminderSettings foregroundError={foregroundReminderError} storageAdapter={sharedStorageAdapter} />
+          <ReminderSettings
+            foregroundError={foregroundReminderError}
+            pushApi={remotePush.api}
+            pushApiError={remotePush.error}
+            pushCredentialStore={pushCredentialStore}
+            schedule={storageState.schedule}
+            storageAdapter={sharedStorageAdapter}
+          />
         )}
       </main>
     </div>

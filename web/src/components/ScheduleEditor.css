@@ -118,6 +118,7 @@
 
 .schedule-editor__feedback--success { background: #edf5e4; color: #4d7047; }
 .schedule-editor__feedback--error { background: #fff0ed; color: #91493e; }
+.schedule-editor__remote-feedback { background: #f5f3e8; border-radius: 8px; color: #786e49; font-size: 12px; line-height: 1.45; margin: 0; padding: 11px 13px; }
 
 .schedule-editor__form {
   background: var(--schedule-surface);

@@ -1,0 +1,40 @@
+{
+  "id": "personal-push-backend-08",
+  "seq": "08",
+  "title": "Create the client API adapter and runtime device credential store",
+  "status": "completed",
+  "depends_on": ["01"],
+  "parallel": true,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/ui/web/react-patterns.md"
+  ],
+  "reference_files": [
+    "web/src/push.ts",
+    "web/src/storage.ts",
+    "web/src/types.ts",
+    "web/src/push.test.ts",
+    "web/package.json",
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md"
+  ],
+  "acceptance_criteria": [
+    "The adapter uses a runtime-configured API base URL and typed fetch calls for pair, push upload, schedule upload, status, and revoke operations.",
+    "Pairing credentials are stored only in a dedicated browser runtime storage key after HTTPS pairing; they are never placed in source, Vite build variables, logs, or the existing fitness storage envelope.",
+    "The adapter bounds payloads, handles non-2xx responses without exposing response secrets, and distinguishes missing credentials from network failure.",
+    "Pure client tests cover serialization, authorization headers, successful pairing, existing credentials, invalid responses, and safe failure behavior."
+  ],
+  "deliverables": [
+    "web/src/pushApi.ts",
+    "web/src/pushApi.test.ts",
+    "web/src/pushCredentials.ts",
+    "web/src/pushCredentials.test.ts"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Implemented HTTPS runtime-configured push API calls, bounded response validation, safe error classes, and isolated device credential storage with pure tests."
+}

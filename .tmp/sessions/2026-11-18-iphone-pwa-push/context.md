@@ -41,6 +41,11 @@ start implementing step one.
   Home Screen installation, direct user gesture for permission/subscription,
   service-worker `push` handling, and VAPID/server delivery.
 - Current static PWA hosting options: `.tmp/external-context/static-pwa-hosting/options.md`
+- `.tmp/external-context/cloudflare-backend/step-3-storage-routing.md`
+- `.tmp/external-context/cloudflare-backend/web-push-vapid.md`
+- Current Cloudflare guidance recommends a separate Worker API with D1 for
+  device, subscription, and schedule records, encrypted secret bindings,
+  bearer device tokens, strict CORS, and a future Cron Trigger delivery handler.
 
 ## Components
 
@@ -59,10 +64,10 @@ start implementing step one.
 
 ## Exit Criteria
 
-- [ ] `step-by-step.md` documents the complete phased implementation.
+- [x] `step-by-step.md` documents the complete phased implementation.
 - [x] Step 1 makes the PWA install metadata and icon assets iPhone-ready.
 - [x] Step 1 build, lint, and tests pass.
-- [ ] Later push/backend phases remain documented but unimplemented until Step 1 is verified.
+- [x] Step 3 backend registration/storage is implemented; Step 4 scheduled delivery remains unimplemented.
 
 ## Progress
 
@@ -72,3 +77,9 @@ start implementing step one.
 - The push subscription is intentionally not uploaded until Step 3 defines the
   private backend contract.
 - Full validation currently passes: 176 tests, lint, and production build.
+- Step 3 is approved and will add the private Worker/D1 registration API while
+  preserving local-only workout data.
+- Step 3 implementation is complete: Worker/D1 registration API, client pairing,
+  subscription upload, four-field schedule projection, CORS, and deployment docs.
+- Step 4 scheduled push delivery, VAPID send/encryption, retries, and Cron remain
+  intentionally unimplemented.

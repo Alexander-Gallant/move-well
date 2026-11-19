@@ -1,0 +1,36 @@
+{
+  "id": "personal-push-backend-05",
+  "seq": "05",
+  "title": "Implement authenticated push subscription and device routes",
+  "status": "completed",
+  "depends_on": ["04"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md",
+    "web/src/push.ts",
+    "docs/technical/phase-2-architecture.md"
+  ],
+  "acceptance_criteria": [
+    "PUT /v1/devices/:id/push accepts only an authenticated owner and validates a bounded HTTPS endpoint plus p256dh/auth subscription keys.",
+    "A valid push request upserts exactly one subscription for the device and never stores the full browser PushSubscription object or unrelated client data.",
+    "GET /v1/devices/:id returns minimal device/subscription status without returning a bearer token, endpoint secret, or VAPID private key.",
+    "DELETE /v1/devices/:id revokes the device and removes its subscription; invalid input and unauthorized access are rejected with stable non-sensitive errors."
+  ],
+  "deliverables": [
+    "worker/src/routes/push.ts",
+    "worker/src/routes/device.ts",
+    "worker/src/routes/push.test.ts",
+    "worker/src/routes/device.test.ts"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Implemented authenticated owner-only push registration, minimal device status, secure validation, and atomic revoke cleanup with focused tests."
+}

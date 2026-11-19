@@ -1,0 +1,19 @@
+{
+  "name": "personal-push-backend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261119.1",
+    "@types/node": "^24.13.3",
+    "typescript": "7.0.2",
+    "vitest": "5.1.1",
+    "wrangler": "4.165.0"
+  }
+}

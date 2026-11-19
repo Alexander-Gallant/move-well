@@ -1,0 +1,37 @@
+{
+  "id": "personal-push-backend-02",
+  "seq": "02",
+  "title": "Scaffold the separate Cloudflare Worker project",
+  "status": "completed",
+  "depends_on": [],
+  "parallel": true,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md"
+  ],
+  "reference_files": [
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md",
+    "web/package.json",
+    "docs/technical/phase-2-architecture.md"
+  ],
+  "acceptance_criteria": [
+    "A separate worker/ project has TypeScript, Wrangler, and test configuration with a minimal fetch entry point.",
+    "wrangler.jsonc defines the Worker entry point, compatibility settings, D1 binding, migration directory, and replaceable custom-domain configuration without real IDs or secrets.",
+    "PAIRING_SECRET and VAPID_PRIVATE_KEY are documented as encrypted secret bindings and no secret value appears in source, config, or frontend variables.",
+    "The scaffold type-checks without changing the existing web application or its local storage model."
+  ],
+  "deliverables": [
+    "worker/package.json",
+    "worker/tsconfig.json",
+    "worker/wrangler.jsonc",
+    "worker/src/index.ts",
+    "worker/README.md"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Scaffolded separate typed Wrangler Worker with D1/migrations placeholders, custom-domain config, required encrypted secret bindings, minimal fetch entry point, and README."
+}

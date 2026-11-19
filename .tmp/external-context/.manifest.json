@@ -1,14 +1,24 @@
 {
-  "github": {
-    "files": [
-      {
-        "filename": "git-authentication-intel-macos.md",
-        "topic": "Git HTTPS authentication on Intel macOS without Homebrew",
-        "tech_stack": "Git on Intel macOS",
-        "fetched": "2026-11-19T00:00:00Z",
-        "source": "Context7 API",
-        "official_docs": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens"
-      }
-    ]
+  "version": "1.0",
+  "last_updated": "2026-11-19T00:00:00Z",
+  "libraries": {
+    "cloudflare-backend": {
+      "files": [
+        {
+          "filename": "step-3-storage-routing.md",
+          "topic": "Step 3 storage, authentication, routing, and deployment",
+          "tech_stack": "Cloudflare Pages/Vite + separate Worker API",
+          "fetched": "2026-11-19T00:00:00Z",
+          "source": "Context7 API + official Cloudflare documentation"
+        },
+        {
+          "filename": "web-push-vapid.md",
+          "topic": "Cloudflare-compatible Web Push and VAPID delivery",
+          "tech_stack": "Cloudflare Worker Web Crypto/fetch runtime",
+          "fetched": "2026-11-19T00:00:00Z",
+          "source": "Context7 API + official library/Cloudflare documentation"
+        }
+      ]
+    }
   }
 }

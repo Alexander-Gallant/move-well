@@ -166,6 +166,31 @@
 .reminder-settings__permission-button:disabled { cursor: wait; opacity: .65; }
 .reminder-settings__error { color: #a35344; font-size: 11px; line-height: 1.5; margin: 13px 0 0; }
 
+.reminder-settings__remote {
+  background: #f5f8f0;
+  border: 1px solid #dfe8d7;
+  border-radius: 9px;
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 14px 15px;
+}
+
+.reminder-settings__remote > strong { color: #405044; font-size: 13px; }
+.reminder-settings__remote > p { color: #718076; font-size: 12px; line-height: 1.5; margin: 0; }
+.reminder-settings__pairing { display: grid; gap: 7px; margin-top: 4px; }
+.reminder-settings__pairing label { color: #405044; font-size: 12px; font-weight: 700; }
+.reminder-settings__pairing input { border: 1px solid #cfdace; border-radius: 6px; min-height: 44px; padding: 9px 11px; }
+.reminder-settings__secondary-button { background: transparent; border: 1px solid #b9c9ad; border-radius: 6px; color: #536d45; font-size: 11px; font-weight: 700; min-height: 44px; padding: 9px 13px; width: fit-content; }
+.reminder-settings__secondary-button:disabled { cursor: wait; opacity: .65; }
+.reminder-settings__remote-status { border-radius: 6px; font-weight: 700; padding: 8px 10px; }
+.reminder-settings__remote-status--success { background: #e8f3dd; color: #4c7045 !important; }
+.reminder-settings__remote-status--offline,
+.reminder-settings__remote-status--unauthorized,
+.reminder-settings__remote-status--error { background: #fff0ed; color: #91493e !important; }
+.reminder-settings__remote-status--unconfigured,
+.reminder-settings__remote-status--unpaired { background: #f5f3e8; color: #786e49 !important; }
+
 @media (min-width: 640px) {
   .reminder-settings__controls { align-items: end; grid-template-columns: 1fr 190px; }
 }

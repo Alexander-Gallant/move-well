@@ -1,0 +1,35 @@
+{
+  "id": "personal-push-backend-04",
+  "seq": "04",
+  "title": "Implement pairing and bearer-token authorization",
+  "status": "completed",
+  "depends_on": ["03"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md",
+    "docs/decisions/phase-2-local-first.md"
+  ],
+  "acceptance_criteria": [
+    "POST /v1/pair accepts the configured pairing secret over HTTPS, creates a device, and returns the device id and bearer token exactly once.",
+    "Device tokens use cryptographically secure random bytes, are stored only as SHA-256 hashes, and are compared without exposing secrets in logs or errors.",
+    "Authorization parsing rejects missing, malformed, unknown, and revoked tokens with 401 and prevents access to another device with 403 where applicable.",
+    "Pairing enforces the two-device personal limit and tests cover successful, repeated, over-limit, invalid-secret, and revoked-token cases."
+  ],
+  "deliverables": [
+    "worker/src/auth.ts",
+    "worker/src/routes/pair.ts",
+    "worker/src/auth.test.ts",
+    "worker/src/routes/pair.test.ts"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Implemented secure pairing, hashed random bearer tokens, strict auth ownership checks, two-device limit, safe errors, and focused tests."
+}

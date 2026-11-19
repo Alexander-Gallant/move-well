@@ -1,0 +1,37 @@
+{
+  "id": "personal-push-backend-07",
+  "seq": "07",
+  "title": "Add Worker routing, CORS, and API integration tests",
+  "status": "completed",
+  "depends_on": ["06"],
+  "parallel": true,
+  "suggested_agent": "TestEngineer",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/documentation.md"
+  ],
+  "reference_files": [
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    ".tmp/external-context/cloudflare-backend/web-push-vapid.md",
+    "docs/technical/phase-2-architecture.md",
+    "web/src/push.ts"
+  ],
+  "acceptance_criteria": [
+    "The Worker routes all defined endpoints, returns consistent JSON errors, handles OPTIONS with 204, and allows only the configured production origin plus an explicitly configured development origin.",
+    "CORS allows only GET/PUT/POST/DELETE/OPTIONS and Authorization/Content-Type, includes Vary: Origin when needed, and never uses wildcard credentials.",
+    "Integration tests cover pairing, authenticated subscription and schedule uploads, status, revoke, invalid origins, preflight, invalid JSON, 401, 403, and no secret leakage in responses.",
+    "The Worker test suite passes with deterministic D1 and Web Crypto test doubles or a supported local D1 harness."
+  ],
+  "deliverables": [
+    "worker/src/cors.ts",
+    "worker/src/router.ts",
+    "worker/src/index.ts",
+    "worker/src/index.test.ts",
+    "worker/src/integration.test.ts"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Implemented Worker routing, strict exact-origin CORS, safe HTTPS API errors, deterministic integration doubles, and endpoint coverage without Cron or push delivery."
+}

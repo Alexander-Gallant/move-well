@@ -1,0 +1,35 @@
+{
+  "id": "personal-push-backend-06",
+  "seq": "06",
+  "title": "Implement authenticated minimal reminder schedule route",
+  "status": "completed",
+  "depends_on": ["05"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    "web/src/schedule.ts",
+    "web/src/types.ts",
+    "web/src/storage.ts",
+    "docs/decisions/phase-2-local-first.md"
+  ],
+  "acceptance_criteria": [
+    "PUT /v1/devices/:id/schedule accepts only the authenticated owner and upserts enabled, local_time, timezone, and weekday-mask fields.",
+    "The route validates HH:MM time, IANA timezone shape, integer weekday mask, enabled state, JSON size, and device ownership before writing.",
+    "The schedule record contains no routine id, routine name, exercise, generated session, or other workout detail.",
+    "Tests cover valid upsert, disable, malformed time/timezone/mask, oversized body, missing auth, wrong device, and persistence behavior."
+  ],
+  "deliverables": [
+    "worker/src/routes/schedule.ts",
+    "worker/src/routes/schedule.test.ts"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Implemented authenticated owner-only schedule upsert with strict four-field validation, prepared D1 persistence, safe responses, and focused tests."
+}

@@ -1,0 +1,34 @@
+{
+  "id": "personal-push-backend-03",
+  "seq": "03",
+  "title": "Create the D1 migration and prepared data access layer",
+  "status": "completed",
+  "depends_on": ["01", "02"],
+  "parallel": false,
+  "suggested_agent": "CoderAgent",
+  "context_files": [
+    "/Users/alexandergallant/.opencode/context/core/standards/code-quality.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/security-patterns.md",
+    "/Users/alexandergallant/.opencode/context/core/standards/test-coverage.md"
+  ],
+  "reference_files": [
+    ".tmp/external-context/cloudflare-backend/step-3-storage-routing.md",
+    "docs/decisions/phase-2-local-first.md",
+    "docs/technical/phase-2-architecture.md"
+  ],
+  "acceptance_criteria": [
+    "The migration creates devices, push_subscriptions, and reminder_schedules with foreign keys, one subscription per device, timestamps, revocation, and useful due-time indexing.",
+    "All user-controlled values use prepared D1 statements with bind(); plaintext bearer tokens and VAPID private keys are never persisted.",
+    "The data access layer exposes focused operations for device, subscription, and schedule reads/upserts/revocation without accepting exercise or routine data.",
+    "Migration and data-access tests cover constraints, upserts, cascade cleanup, and invalid values at the application boundary."
+  ],
+  "deliverables": [
+    "worker/migrations/0001_initial.sql",
+    "worker/src/db.ts",
+    "worker/src/db.test.ts"
+  ],
+  "agent_id": "coder-agent",
+  "started_at": "2026-11-19T00:00:00Z",
+  "completed_at": "2026-11-19T00:00:00Z",
+  "completion_summary": "Added constrained D1 schema, prepared DI data access for devices/subscriptions/schedules, revocation cleanup, validation, due queries, and deterministic tests."
+}

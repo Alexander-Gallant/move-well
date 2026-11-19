@@ -1,8 +1,9 @@
 # Move well
 
 Move well is a local-first fitness web app for browsing exercises, creating named routines, and
-planning recurring weekly workouts. Data stays in the current browser; no account or backend is
-required.
+planning recurring weekly workouts. The optional private push API stores only device registration,
+the Web Push subscription, and a four-field reminder projection; workout data stays in the current
+browser.
 
 ## Features
 
@@ -111,9 +112,104 @@ The client also contains the first Web Push integration boundary:
   `userVisibleOnly` push subscription through the production service worker.
 - The service worker can display a defensive push payload and focus the app when
   its notification is clicked.
-- The current deployment does not set a VAPID key and does not upload
-  subscriptions; a private backend and scheduled sender are still required for
-  background reminders.
+- When the private Worker API is configured and the device is paired, the app
+  uploads the subscription and four-field reminder projection. It never uploads
+  exercises, routines, routine contents, or generated workouts.
+- A VAPID public key is safe to expose to the browser; the VAPID private key and
+  pairing secret must remain encrypted Worker secrets.
+
+## Separate Pages frontend and Worker API deployment
+
+Cloudflare Pages hosts this Vite frontend. The push API is a separate Cloudflare
+Worker at an HTTPS custom domain such as `https://api.<your-domain>`; deploying
+one does not deploy the other. Deploy the Worker first so the API origin and
+VAPID public key are known, then build and deploy Pages.
+
+### Configure the Pages build
+
+The frontend reads these Vite variables at build time:
+
+```dotenv
+VITE_PUSH_API_BASE_URL="https://api.<your-domain>"
+VITE_VAPID_PUBLIC_KEY="<base64url-vapid-public-key>"
+```
+
+The API base URL is the Worker origin only; do not append `/v1` because the
+client adds that path. Set both variables in the Cloudflare Pages project's
+production environment (and separately in its preview environment if preview
+testing is required). For a local build, use an untracked `.env.local` file or
+provide the variables in the shell. Never put `PAIRING_SECRET`,
+`VAPID_PRIVATE_KEY`, or a device bearer token in a `VITE_*` variable.
+
+From `web/`, validate and deploy the static site separately:
+
+```bash
+npm install
+npm run test -- --run
+npm run lint
+npm run build
+npx wrangler pages deploy dist --project-name <pages-project>
+```
+
+For a direct-upload build, the Pages environment variables must be present
+before `npm run build`; a local one-off build can use placeholders supplied only
+through the shell, for example:
+
+```bash
+VITE_PUSH_API_BASE_URL="https://api.<your-domain>" \
+VITE_VAPID_PUBLIC_KEY="<base64url-vapid-public-key>" \
+npm run build
+```
+
+The Worker database migration, custom domain, `APP_ORIGIN`, `DEV_ORIGIN`, and
+encrypted secrets are configured from `worker/`; see `worker/README.md`. In
+production, `APP_ORIGIN` must exactly match this Pages origin. `DEV_ORIGIN` is
+only for an explicitly configured local development origin such as
+`http://localhost:5173`.
+
+### Pair and register each phone
+
+On iOS/iPadOS 16.4 or newer, open the deployed Pages URL in Safari, choose
+**Share → Add to Home Screen**, and open the installed app. Repeat on both
+phones:
+
+1. In **Reminder settings**, enter the operator-supplied pairing code and tap
+   **Pair this device**.
+2. Grant notification permission from the explicit permission button.
+3. Tap **Register this device for push**. The app uploads the browser
+   subscription and the remote reminder projection.
+4. Confirm that changing the reminder time or weekly assignment reports a
+   successful remote update.
+
+Pairing creates a separate device record and bearer token per phone. The token
+is stored only in that browser's `move-well-push-credentials` entry. To reset a
+device, revoke `DELETE /v1/devices/{deviceId}` with its bearer token, clear that
+local credential entry, and unsubscribe/remove the browser PushSubscription if
+a complete browser reset is needed. Pair again to create a replacement device;
+never paste tokens or pairing codes into URLs or logs.
+
+### Final validation
+
+Run the frontend checks from `web/` and the API checks from `worker/`:
+
+```bash
+# web/
+npm run test -- --run
+npm run lint
+npm run build
+
+# worker/
+npm run check
+npm test
+npx wrangler d1 migrations list personal-push --remote
+npx wrangler deploy --dry-run
+```
+
+After deployment, also verify the Worker's HTTPS CORS preflight from the exact
+Pages origin and complete one pairing/registration on each phone. The Worker
+README contains the safe `curl -X OPTIONS` check. A `204` preflight, successful
+pairing, registered push subscription, and status response confirm Step 3;
+they do not test scheduled delivery.
 
 ## Offline and PWA behavior
 
@@ -144,10 +240,14 @@ new worker takes control. Registration and update failures are non-fatal.
 
 ## Known limitations
 
-- There is no backend, account system, backup service, or cross-device synchronization.
+- The optional backend is not an account, backup, or cross-device workout
+  synchronization service; it stores only push registration data.
 - Local data is tied to the browser profile and can be lost when site storage is cleared.
 - Foreground reminder checks do not provide guaranteed background scheduling.
 - Browser reminders depend on permission, browser support, and platform behavior.
-- Reliable iPhone notifications require a future native or push-enabled implementation.
-- Web Push registration is currently client-only; there is no subscription API,
-  VAPID sender, or scheduled reminder backend yet.
+- Reliable delivery still depends on browser permission, iOS behavior, Focus
+  mode, network availability, and the future sender.
+- Step 4 scheduled push delivery/Cron, VAPID encryption and sending, retries,
+  expired-subscription handling, and workout-specific notification payloads are
+  not implemented by this feature. The current API accepts registration and
+  schedule data but does not promise a background notification.

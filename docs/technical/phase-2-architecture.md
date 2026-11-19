@@ -14,8 +14,10 @@ React UI
   └─ production service worker → shell/static asset Cache Storage + Web Push display handlers
 ```
 
-There is no API or remote data source. Cache Storage contains application resources; local storage
-contains user data. An old asset cache is not a backup or synchronization layer.
+The separate Worker API is a narrow remote registration boundary. Cache Storage
+contains application resources; local storage contains exercises, routines,
+weekly assignments, and workout data. An old asset cache is not a backup or
+synchronization layer.
 
 ## Storage
 
@@ -92,16 +94,18 @@ Unsupported, denied, default, display-failure, and error states produce non-fata
 schedule remains usable. This layer does not provide guaranteed background scheduling or reliable
 iPhone notification delivery.
 
-### Web Push client boundary
+### Web Push client and Worker boundary
 
 The client-side push module is separate from the foreground notification
 capability. After notification permission is granted, it can use the production
 service worker and a `VITE_VAPID_PUBLIC_KEY` to create a `userVisibleOnly`
-subscription. The subscription is not persisted in application local storage or
-sent to a server yet. The service worker handles `push` payloads defensively,
-shows a visible notification immediately, and focuses or opens the app on
-notification click. A future backend must receive subscriptions over an
-authenticated endpoint and send encrypted VAPID pushes.
+subscription. After explicit pairing and registration, `pushApi.ts` uploads only
+the subscription and four-field reminder projection to the separate Worker API.
+Device bearer credentials are kept in a dedicated browser key and never enter
+the fitness storage envelope. The service worker handles `push` payloads
+defensively, shows a visible notification immediately, and focuses or opens the
+app on notification click. Step 4 must still implement encrypted VAPID delivery
+and scheduling.
 
 ## PWA build and service-worker caching
 
@@ -112,8 +116,8 @@ worker.
 `public/sw.js` uses deterministic versioned cache names:
 
 ```text
-move-well-precache-v3
-move-well-runtime-v3
+  move-well-precache-v5
+  move-well-runtime-v5
 ```
 
 ### App-shell precaching
@@ -155,8 +159,10 @@ behavior should be checked with `build` followed by `preview`.
 
 ## Known boundaries
 
-- No backend, account, backup service, push subscription API, or cross-device synchronization exists.
+- The Worker backend stores registration data only; there is no account system,
+  backup service, or cross-device synchronization for exercises and routines.
 - Browser local storage is the only durable copy of user-created data.
 - A recurring schedule is stored and displayed, but foreground checks do not guarantee background
   execution.
-- Notification permission does not guarantee delivery, especially on iPhone.
+- The Worker does not yet send scheduled pushes; notification permission and a
+  registered subscription do not guarantee delivery, especially on iPhone.
